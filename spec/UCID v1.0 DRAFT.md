@@ -223,7 +223,7 @@ Throughout the object model subsections, attributes may be indicated as “Requi
 
 From a specification compliance perspective, any attribute not denoted *required* is optional, whether *recommended* or not. An optional attribute may have a default value to be assumed if omitted.  If no default is indicated, then by convention its absence should be interpreted as *unknown*, unless otherwise specified. Empty strings or null values should be interpreted the same as omitted (i.e., the default if one is specified or *unknown* otherwise).
 
-**Note:** As a convention in this document, objects being defined are denoted with uppercase first letter in deference to the common convention for class names in programming languages such as Java, whereas actual instances of objects and references thereto in payloads are lowercase.
+**Note:** As a convention in this document, objects being defined are denoted with uplpercase first letter in deference to the common convention for class names in programming languages such as Java, whereas actual instances of objects and references thereto in payloads are lowercase.
 
 ### Object:  RegistrationAuthority <a name="object_ra"></a>
 
@@ -236,7 +236,7 @@ The <code>RegistrationAuthority</code> object represents the information for a s
     <td><strong>Definition</strong></td>
   </tr>
   <tr>
-    <td><code>Name</code></td>
+    <td><code>name</code></td>
     <td>string;&nbsp;required&nbsp;</td>
     <td>Name of the Registration Authority</td>
   </tr>
@@ -246,35 +246,35 @@ The <code>RegistrationAuthority</code> object represents the information for a s
     <td>1-character unique Registration Authority Identifier</td>
   </tr>
   <tr>
-    <td><code>ApiBaseUrl</code></td>
+    <td><code>apiBaseUrl</code></td>
     <td>string;&nbsp;required&nbsp;*</td>
     <td>The URL root used to call the Registration Authority's UCID API, e.g. <code>https://ucid.extremereach.com</code></td>
   </tr>
   <tr>
-    <td><code>Organization</code></td>
+    <td><code>organization</code></td>
     <td>string;&nbsp;required&nbsp;</td>
     <td>The name of the organization hosting the Registration Authority.</td>
   </tr>
   <tr>
-    <td><code>ContactEmail</code></td>
+    <td><code>contactEmail</code></td>
     <td>string</td>
     <td>The email address for contacting the organization hosting the Registration Authority.</td>
   </tr>
   <tr>
-    <td><code>UcidVersion</code></td>
+    <td><code>ucidVersion</code></td>
     <td>string</td>
     <td>Supported Version of the Universal Creative Identification Framework Specification (e.g., "1.0"). Default is <code>1.0</code></td>
   </tr>
   <tr>
-    <td><code>RegionsCovered</code></td>
+    <td><code>regionsCovered</code></td>
     <td>string</td>
     <td>Listing of region(s) where the Registration Authority operates.</td>
   </tr>
 </table>
 
-Some of these attributes are optional. The `RegionsCovered` attribute, for example, indicates the regions, markets, countries, etc. where this Registration Authority operates. Its utility here is more to assist in diagnostics by making the payload more self-documenting outside the context of a runtime transaction.
+Some of these attributes are optional. The `regionsCovered` attribute, for example, indicates the regions, markets, countries, etc. where this Registration Authority operates. Its utility here is more to assist in diagnostics by making the payload more self-documenting outside the context of a runtime transaction.
 
-Most attributes are required. The `ApiBaseUrl` attribute does have runtime utility since each Registration Authority communicates with its peers via the standard protocol and must know how to connect.
+Most attributes are required. The `apiBaseUrl` attribute does have runtime utility since each Registration Authority communicates with its peers via the standard protocol and must know how to connect.
 
 
 ### Object:  Domain <a name="object_domain"></a>
@@ -288,7 +288,7 @@ The <code>Domain</code> object represents a unique 4-character prefix assigned t
     <td><strong>Definition</strong></td>
   </tr>
   <tr>
-    <td><code>DomainCode</code></td>
+    <td><code>domainCode</code></td>
     <td>string;&nbsp;required&nbsp;</td>
     <td>Unique 4-character prefix that represents the domain</td>
   </tr>
@@ -310,17 +310,17 @@ The <code>UCID</code> object represents a unique creative identifier created for
     <td>Unique creative identifier code</td>
   </tr>
   <tr>
-    <td><code>Owner</code></td>
+    <td><code>owner</code></td>
     <td>string;&nbsp;required&nbsp;</td>
     <td>The name of the organization/entity that owns the UCID and the Domain it belongs to</td>
   </tr>
   <tr>
-    <td><code>Uri</code></td>
+    <td><code>uri</code></td>
     <td>string;&nbsp;required&nbsp;</td>
     <td>The fully qualified URI that returns this UCID from the RA that issued it</td>
   </tr>
   <tr>
-    <td><code>Relationships</code></td>
+    <td><code>relationships</code></td>
     <td>List of <code>Relationship</code></td>
     <td>The optional set of related UCIDs that this UCID is related to</td>
   </tr>
@@ -342,12 +342,12 @@ The <code>Relationship</code> object represents a related unique creative identi
     <td>Unique creative identifier code</td>
   </tr>
   <tr>
-    <td><code>Uri</code></td>
+    <td><code>uri</code></td>
     <td>string;&nbsp;required&nbsp;</td>
     <td>The fully qualified URI that returns this UCID from the RA that issued it</td>
   </tr>
   <tr>
-    <td><code>RelationshipType</code></td>
+    <td><code>type</code></td>
     <td>string;&nbsp;required&nbsp;</td>
     <td>One of the following: 'Parent', 'Child', 'Sibling' or 'Alias'</td>
   </tr>
@@ -427,16 +427,16 @@ The following is an example of a UCID creation operation.
 Request:  POST https://ucid.io/ucids
 Body:
  {
-  "Domain": "ACME",
-  "CustomPrefix": "",
-  "CustomSuffix": ""
+  "domain": "ACME",
+  "customPrefix": "",
+  "customSuffix": ""
 }
 Response: 
 {
   "UCID": "EACME004723",
-  "Owner": "Acme International",
-  "Uri": "https://ucid.io/ucids/EACME004723",
-  "Relationships": []
+  "owner": "Acme International",
+  "uri": "https://ucid.io/ucids/EACME004723",
+  "relationships": []
 }
 ```
 
@@ -449,9 +449,9 @@ Request:  GET https://ucid.io/ucids/EACME000123
 Response: 
 {
   "UCID": "EACME000123H",
-  "Owner": "Acme International",
-  "Uri": "https://ucid.io/ucids/EACME000123",
-  "Relationships": []
+  "owner": "Acme International",
+  "uri": "https://ucid.io/ucids/EACME000123",
+  "relationships": []
 }
 ```
 
@@ -464,19 +464,19 @@ Request:  GET https://ucid.io/ra/peers
 Response: 
 [
   {
-    "Name": "Ad-ID",
+    "name": "Ad-ID",
     "RAID": "A",
-    "ApiBaseUrl": "https://ucid.ad-id.org"
+    "apiBaseUrl": "https://ucid.ad-id.org"
   },
   {
-    "Name": "Clearcast",
+    "name": "Clearcast",
     "RAID": "C",
-    "ApiBaseUrl": "https://ucid.clearcast.uk"
+    "apiBaseUrl": "https://ucid.clearcast.uk"
   },
   {
-    "Name": "ISCI",
+    "name": "ISCI",
     "RAID": "I",
-    "ApiBaseUrl": "https://isci.extremereach.com"
+    "apiBaseUrl": "https://isci.extremereach.com"
   }
 ]
 ```
