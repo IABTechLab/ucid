@@ -155,20 +155,45 @@ Universal Creative Identification is a living specification. New objects and att
 ### Universal Creative ID Structure - Default <a name="ucid-default"></a>
 The standard UCID structure for a creative identifier is an 11-character code consisting simply of an RAID, a Domain Code and a unique 6-character sequence, allowing up to 2,176,782,336 possible unique IDs per RA/Domain.
 
-![image](https://user-images.githubusercontent.com/7672719/137588943-843c4e59-bd07-4db4-9460-cc6738b767e1.png)
+![image](https://user-images.githubusercontent.com/7672719/142200272-9f717a86-49ee-4a55-8d63-1d9f077c287c.png)
 
 ### Default Universal Creative ID Elements <a name="ucid-elements"></a>
 
-![image](https://user-images.githubusercontent.com/7672719/137589287-35087807-7026-49e4-b007-10f564cd47f6.png)
-
+!<table>
+  <tr>
+    <td><strong>ID Element&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></td>
+    <td><strong>Values&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></td>
+    <td><strong>Purpose</strong></td>
+  </tr>
+  <tr>
+    <td>RAID</td>
+    <td>1 alpha-numeric character, from 0 to Z</td>
+    <td>Designates the Registration Authority that generated the code. Some initial RAID values could be: A = Ad-ID, C = Clearcast, E = ER, etc. 37 total possible registries.</td>
+  </tr>
+  <tr>
+    <td>ID Domain</td>
+    <td>4 alpha-numeric characters, from 0 to Z</td>
+    <td>The unique ID domain issued to the client by the RA.</td>
+  </tr>
+  <tr>
+    <td>Unique ID Value</td>
+    <td>6 alpha-numeric characters, from 0 to Z</td>
+    <td>A character sequence that is unique within the domain.</td>
+  </tr>
+</table
+ 
 ### Universal Creative ID Structure - Example Custom Schemas <a name="ucid-custom"></a>
 If supported by the RA, a client may also elect to apply a custom schema to their identifiers, such that individual positions in the generated ad code can represent creative attributes that have specific meaning to the client and other consumers of the code. This includes using extended characters, such as dash, slash, underscore, etc. within the domain or code. This flexibility in the schema also allows the UCID to incorporate formatting used in various "legacy" creative identifiers used across different global markets. In most cases, a legacy identifier can be converted to a UCID simply by adding an RAID prefix;'.
 
-#### Encoding campaign and production year information within a UCID
-![UCID02](https://user-images.githubusercontent.com/7672719/136828446-f40e2332-e823-4fee-a59a-6c13fc0cdee7.png)
+#### Implementing Ad-ID format within a UCID
+![image](https://user-images.githubusercontent.com/7672719/142200475-69936d6b-742a-4ee9-b0c4-446fef47ff55.png)
+
 
 #### Implementing Clearcast Clock-ID format within a UCID
-![image](https://user-images.githubusercontent.com/7672719/137186878-6df34a98-5004-4095-aa9b-462f202a7b21.png)
+![image](https://user-images.githubusercontent.com/7672719/142200531-dcf455b8-5457-498f-83b0-cdd86caa6e7d.png)
+
+#### Encoding client-specific campaign and production year information within a UCID
+![image](https://user-images.githubusercontent.com/7672719/142200600-60ee641a-c85a-4dae-9746-024117fcccdf.png)
 
 
 ## Protocol Layers <a name="protocollayers"></a>
