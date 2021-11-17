@@ -155,7 +155,7 @@ Universal Creative Identification is a living specification. New objects and att
 ### Universal Creative ID Structure - Default <a name="ucid-default"></a>
 The standard UCID structure for a creative identifier is an 11-character code consisting simply of an RAID, a Domain Code and a unique 6-character sequence, allowing up to 2,176,782,336 possible unique IDs per RA/Domain.
 
-![image](https://user-images.githubusercontent.com/7672719/142200272-9f717a86-49ee-4a55-8d63-1d9f077c287c.png)
+![image](https://user-images.githubusercontent.com/7672719/142202107-4e0d5cde-35b7-49da-b7d5-9336643053e1.png)
 
 ### Default Universal Creative ID Elements <a name="ucid-elements"></a>
 
