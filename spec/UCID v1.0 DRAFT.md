@@ -213,9 +213,14 @@ Calls returning content (e.g., a UCID or UCID metadata) should return HTTP code 
 
 The Universal Creative Identification version must be passed in the header of each UCID API request with a custom header parameter. This will allow Registration Authorities and their Clients to recognize the version of the message contained before attempting to parse the request. See [Versioning Policy](#appendixd_versioning) and [Universal Creative Identification Principles](#ucid_principles) for more regarding versioning.
 
-`x-ucid-version: 1.0`
+`X-UCID-Version: 1.0`
 
 Additionally, while optional, it is recommended that responses include an identically formatted HTTP header with the protocol version implemented by the responder.  It is assumed, however, that any response will be compatible with the version of the request and that version support is discussed beforehand between the parties. If the version header is omitted from a request the assumed version will be 1.0.
+
+#### Peer Headers <a name="peerheaders"></a>
+When an RA forwards a request to a Peer it must include a `X-Peer-RAID` header containing its own RAID. This allows the RA recieving the request to understand that the request came from within the RA network and therefore should not be forwarded further, acting as a circuit breaker to recursive calls.
+
+`X-Peer-RAID: E`
 
 #### Transport Security <a name="transportsecurity"></a>
 
@@ -293,6 +298,11 @@ The <code>RegistrationAuthority</code> object represents the information for a s
     <td><code>regionsCovered</code></td>
     <td>string</td>
     <td>Listing of region(s) where the Registration Authority operates.</td>
+  </tr>
+  <tr>
+    <td><code>legacyCodeFormat</code></td>
+    <td>string</td>
+    <td>Regular expression defining non UCID code formats that can be validated. Enables an RA to search for peer that can potentially validate a code with a RAID that is not recognised.</td>
   </tr>
 </table>
 
@@ -399,7 +409,7 @@ To put these concepts into practice, Registration Authorities must know how to c
 | --------- |-----------| -----------| ---------- |
 | https://ucid.io/ucids/{creative_identifier} | GET | Validates a submitted creative_dentifier as being a UCID that was issued by the Registration Authority and returns the validated ID and basic metadata.** | [UCID](#object_ucid) or 302 Redirect |   
  
-**If the submitted creative identifier was NOT issued by the RA, the RA will forward the request on to the peer RA identified by its prefix. If the peer successfully validates the UCID then the response can be returned to the client which by defintion contains a Uri to the validating RA. For cases where a “legacy” creative_dentifier (e.g. an ID that is missing the RAID prefix) is submitted and validated, then optionally the request can be forwarded to all peers, in this instance the returned metadata must include the fully-qualified UCID, effectively providing an automatic translation from the legacy ID format to the new UCID format.
+**If the submitted creative identifier was NOT issued by the RA, the RA will forward the request on to the peer RA identified by its prefix. If the peer successfully validates the UCID then the response can be returned to the client which by defintion contains a Uri to the validating RA. For cases where a “legacy” creative_dentifier (e.g. an ID that does not match a registered RAID prefix) is submitted and validated, then the request can be forwarded to all peers where the code matches the `legacyCodeFormat`, in this instance the returned metadata must include the fully-qualified UCID, effectively providing an automatic translation from the legacy ID format to the new UCID format.
  
 ## Private Operations <a name="private-operations"></a>
 
