@@ -539,12 +539,12 @@ Response:
 
 ### UCID Validation of Peer-Issued Identifier <a name="examples_ucid_validation_peer"></a>
 
-The following is an example of a UCID validation operation where an identifer issued by an RA peer was passed in request. The RA performs returns a 302 Redirect to the correct URI for the issuing RA.
+The following is an example of a UCID validation operation where an identifer issued by an RA peer was passed in request. The RA resolves the issuing RA from RAID and returns a 302 Redirect to the correct URI for the issuing RA.
 
 ```
-Request:  GET https://ucid.io/ucids/AABCD000123H
+Request:  GET https://ucid.io/ucids/SABCD000123H
 Response: HTTP 302 Redirect
-Location Header: https://ucid.ad-id.org/ucids/AABCD000123H
+Location Header: https://ucid.sample.io/ucids/SABCD000123H
 ```
 
 ### RA Identification <a name="examples_ra_identification"></a>
