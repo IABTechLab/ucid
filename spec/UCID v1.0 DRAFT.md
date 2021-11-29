@@ -4,18 +4,6 @@
 
 **September 2021**
 
-**About Extreme Reach**
-
-Extreme Reach (ER) is the global leader in creative logistics. Its end-to-end technology platform moves creative at the speed of media, simplifying the activation and optimization of omnichannel campaigns for brands and agencies with unparalleled control, visibility and insights. 
-
-One global creative-to-media supply chain answers the challenges of a complex marketing landscape and an equally complicated infrastructure under the global advertising ecosystem. The company's groundbreaking solution integrates all forms of linear TV and non-linear video workflow seamlessly with talent payments and rights management. Now, brands and agencies can optimize campaigns as fast as consumer consumption shifts across linear TV, CTV, OTT, addressable TV, mobile, desktop, and video-on-demand. 
-
-Extreme Reach connects brand content with consumers across media types and markets, fully illuminating the marketing supply chain for a clear view of creative usage, waste, performance and ROI. 
- 
-Extreme Reach operates in 140 countries and 45 languages, with 1,100 team members serving 90 of the top 100 global advertisers and enabling $150 billion in video ad spend around the world. More than half a billion creative brand assets are managed in ER’s creative logistics platform.
-
-Learn more about Extreme Reach at [www.extremereach.com](https://www.extremereach.com).
-
 **License**
 
 Universal Creative Identification Framework Specification is licensed under a Creative Commons Attribution 3.0 License. To view a copy of this license, visit[ creativecommons.org/licenses/by/3.0/](http://creativecommons.org/licenses/by/3.0/) or write to Creative Commons, 171 Second Street, Suite 300, San Francisco, CA 94105, USA.
@@ -71,7 +59,7 @@ The mission of the Universal Creative Identification project is to provide an op
 
 This document specifies an open-standard framework for the creation and validation of globally unique identifers for creative assets. This specification aims to standardize and simplify the process for generating unique creative identifiers by multiple parties in the ecosystem. This results in an open ecosystem whereby multiple providers can participate instead of relying on a single, proprietary ID scheme, or on loosely defined formats and "honor system" uniqueness. The framework is patterned loosely after the [Internet Domain Name System](https://en.wikipedia.org/wiki/Domain_Name_System) (DNS), since Internet interoperability also depends on a clear system for ensuring uniqueness of resources. While DNS operates at a lower level of the networking stack, the Universal Creative Identification Framework operates on top of the HTTP protocol and uses standard HTTP REST API semantics to manage generation and access to creative identifiers. 
 
-The overall goal of Universal Creative Identification is and has been to create a *uniform standard* for idenfiying creative assets used in marketing. The intent is not to specify exactly how each participating party generates unique identifiers. As a project, we aim to establish a basic standard format and facilitate interoperability between parties in the ecosystem, while ensuring global uniqueness of identifiers so that execution and reporting can be performed with greater accuracy.
+The overall goal of Universal Creative Identification is and has been to create a *uniform standard* for idenfiying creative assets used in marketing. The intent is not to specify exactly how each participating party generates unique identifiers. As a project, we aim to establish a basic standard format and facilitate interoperability between parties in the ecosystem, while ensuring global uniqueness of identifiers so that campaign execution and reporting can be performed with greater accuracy.
 
 ## History of Universal Creative Identification Framework <a name="historyofucid"></a>
 
@@ -133,14 +121,17 @@ The following terms are used throughout this document specifically in the contex
 
 The following points define the guiding principles underlying the Universal Creative Identification Framework Specification, some of its basic rules, and its evolution.
 
-* The UCID framework involves designation of **Registration Authorities** that are recognized suppliers of trusted, unique creative identifiers within the creative ecosystem**. The list of recognized Registration Authorities is maintained on the [Universal Creative Identification Wikipedia page](https://www.wikipedia.org/wiki/ucid).
+### Registration Authorities
+* The UCID framework involves designation of **Registration Authorities** that are recognized suppliers of trusted, unique creative identifiers within the creative ecosystem. The list of recognized Registration Authorities is maintained on the [Universal Creative Identification Wikipedia page](https://www.wikipedia.org/wiki/ucid).
 * Each Registration Authority (RA) is responsible for the following primary functions:
-  * Issuing unique **Domains** for individual advertisers, agencies, etc. (clients), similar to how a company can register one or more Internet domains. The combination of RA and Domain must be globally unique.
-  * Issuing unique creative identifiers, or **UCIDs** on behalf of authorized clients and ensuring that all issued identifiers are unique within each RA/Domain. Within a given RA/Domain a client may generate as many creative identifiers as they choose.
+  * Issuing unique **Domains** for individual advertisers, agencies, etc. (clients), similar to how a company can register one or more Internet domains**. The combination of RA and Domain must be globally unique.
+  * Issuing **Universal Creative Identifiers**, or **UCIDs**, on behalf of authorized clients and ensuring that all issued identifiers are unique within each RA/Domain. Within a given RA/Domain a client may generate as many creative identifiers as they choose.
   * Validating UCIDs to confirm that they were previously issued by the RA, or one of its peers.
-  * Each RA should implement all API operations and objects defined in this specification. This allows each RA to communicate with its peers by calling the defined operations against the *ApiBaseUrl* for each RA.
+  * Each RA should implement all API operations and objects defined in this specification. This allows each RA to communicate with its peers by calling well-known operations against the *ApiBaseUrl* for each RA.
+### RA/Domain Scoping of Creative Identifiers 
 * An important element of the UCID framework is the inclusion of a **Registration Authority Identifier** (RAID) prefix on every generated identifier. This ensures that all creative identifiers are universally unique, even if two or more registries issue the same domain or even full code. This is similar to the “top level domain” (TLD) used with Internet domains (e.g. .com, .org, .edu, etc.)
 * The RAID is represented by a single alpha-numeric character and can quickly distinguish which registry issued the code, similar to the first digit of a credit card designating VISA, MasterCard, etc.
+### Open Validation
 * Another important aspect of the UCID framework is the *open validation* mechanism. Any creative identifier can be validated by simply calling a public API operation against any recognized RA. This allows parties throughout the marketing supply chain to confirm the uniqueness and source for creative identifiers.
 * The framework allows “Legacy” creative codes that do not conform to the UCID structure (do not include a valid RAID prefix code) to be validated by querying peer RAs to verify that the code is valid and was generated by one of the peer RAs.
 * Clients should ensure that a UCID is assigned to each unique creative asset they produce and that the same UCID is used for all renditions and uses for that creative. For example, a video ad creative used across linear TV, CTV, web and social channels should use the same UCID for all usages to ensure that measurement data from various sources can be aligned to the same creative message.
@@ -180,7 +171,7 @@ The standard UCID structure for a creative identifier is an 11-character code co
     <td>6 alpha-numeric characters, from 0 to Z</td>
     <td>A character sequence that is unique within the domain.</td>
   </tr>
-</table
+</table>
  
 ### Universal Creative ID Structure - Example Custom Schemas <a name="ucid-custom"></a>
 If supported by the RA, a client may also elect to apply a custom schema to their identifiers, such that individual positions in the generated ad code can represent creative attributes that have specific meaning to the client and other consumers of the code. This includes using extended characters, such as dash, slash, underscore, etc. within the domain or code. This flexibility in the schema also allows the UCID to incorporate formatting used in various "legacy" creative identifiers used across different global markets. In most cases, a legacy identifier can be converted to a UCID simply by adding an RAID prefix.
@@ -326,6 +317,16 @@ The <code>Domain</code> object represents a unique 4-character prefix assigned t
     <td>string;&nbsp;required&nbsp;</td>
     <td>Unique 4-character prefix that represents the domain</td>
   </tr>
+  <tr>
+    <td><code>owner</code></td>
+    <td>string;&nbsp;required&nbsp;</td>
+    <td>The name of the organization/entity that owns the domain</td>
+  </tr>
+  <tr>
+    <td><code>domainName</code></td>
+    <td>string</td>
+    <td>"Friendly" name associated with domain, e.g. associated advertiser, brand, internet domain, etc.</td>
+  </tr>
 </table>
 
 ### Object:  UCID <a name="object_ucid"></a>
@@ -409,7 +410,7 @@ To put these concepts into practice, Registration Authorities must know how to c
 | --------- |-----------| -----------| ---------- |
 | https://ucid.io/ucids/{creative_identifier} | GET | Validates a submitted creative_dentifier as being a UCID that was issued by the Registration Authority and returns the validated ID and basic metadata.** | [UCID](#object_ucid) or 302 Redirect |   
  
-**If the submitted creative identifier was NOT issued by the RA, the RA will forward the request on to the peer RA identified by its prefix. If the peer successfully validates the UCID then the response can be returned to the client which by defintion contains a Uri to the validating RA. For cases where a “legacy” creative_dentifier (e.g. an ID that does not match a registered RAID prefix) is submitted and validated, then the request can be forwarded to all peers where the code matches the `legacyCodeFormat`, in this instance the returned metadata must include the fully-qualified UCID, effectively providing an automatic translation from the legacy ID format to the new UCID format.
+**If the submitted creative identifier was NOT issued by the RA, the RA will reformat the request to target the Uri of the correct validating peer RA, identified by its prefix, and return a 302 redirect to the caller. For cases where a “legacy” creative_dentifier (e.g. an ID that does not match a registered RAID prefix) is submitted and validated, then the request can be forwarded to all peers where the code matches the `legacyCodeFormat`, in this instance the returned metadata must include the fully-qualified UCID, effectively providing an automatic translation from the legacy ID format to the new UCID format.
  
 ## Private Operations <a name="private-operations"></a>
 
