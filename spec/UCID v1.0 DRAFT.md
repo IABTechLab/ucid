@@ -45,6 +45,7 @@ Universal Creative Identification Framework Specification is licensed under a Cr
   - [UCID Validation](#examples_ucid_validation)
   - [UCID Validation of "Legacy" Identifier](#examples_ucid_validation_legacy)
   - [UCID Validation of Peer-Issued Identifier](#examples_ucid_validation_peer)
+  - [RA Identification](#examples_ra_identification)
   - [RA Peer Discovery](#examples_peer_discovery)
 - [Appendix A:  Additional Resources](#appendixa_additionalresources)
 - [Appendix B:  Change Log](#appendixb_changelog)
@@ -546,6 +547,22 @@ Response: HTTP 302 Redirect
 Location Header: https://ucid.ad-id.org/ucids/AABCD000123H
 ```
 
+### RA Identification <a name="examples_ra_identification"></a>
+
+The following is an example of a RA identification operation.
+
+```
+Request:  GET https://ucid.sample.io
+Response: 
+{
+  "Name": "Sample Registration Authority",
+  "RAID": "S",
+  "ApiBaseUrl": "https://ucid.sample.io",
+  "Organization": "Sample Organization",
+  "ContactEmail": "ucid@sample.io",
+  "RegionsCovered": "*"
+}
+```
 ### RA Peer Discovery <a name="examples_peer_discovery"></a>
 
 The following is an example of a RA peer discovery operation.
