@@ -2,7 +2,7 @@
 
 # Universal Creative Identification Framework Specification v1.0
 
-**September 2021**
+**November 2021**
 
 **License**
 
