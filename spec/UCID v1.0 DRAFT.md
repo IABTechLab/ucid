@@ -529,9 +529,9 @@ Response:
   "relationships": 
   [
     {
-      "UCID": "EACME000123H",
+      "UCID": "ACME000123H",
       "relationshipType": "Alias",
-      "uri": "https://ucid.io/ucids/EACME000123"
+      "uri": "https://ucid.io/ucids/ACME000123"
     }
   ]
 }
