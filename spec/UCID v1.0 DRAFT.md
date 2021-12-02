@@ -539,7 +539,7 @@ Response:
 
 ### UCID Validation of Peer-Issued Identifier <a name="examples_ucid_validation_peer"></a>
 
-The following is an example of a UCID validation operation where an identifer issued by an RA peer was passed in request. The RA resolves the issuing RA from RAID and returns a 302 Redirect to the correct URI for the issuing RA.
+The following is an example of a UCID validation operation where an identifer issued by an RA peer was passed in the request. The RA resolves the issuing RA from RAID, proxies to call to the Peer RA, and returns the response.
 
 ```
 Request:  GET https://ucid.io/ucids/SABCD000123H
@@ -551,6 +551,7 @@ Response:
   "relationships": []
 }
 ```
+Note: The response contains the uri for the peer RA.
 
 ### RA Identification <a name="examples_ra_identification"></a>
 
