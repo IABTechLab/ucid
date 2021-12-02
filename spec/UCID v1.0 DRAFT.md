@@ -543,8 +543,13 @@ The following is an example of a UCID validation operation where an identifer is
 
 ```
 Request:  GET https://ucid.io/ucids/SABCD000123H
-Response: HTTP 302 Redirect
-Location Header: https://ucid.sample.io/ucids/SABCD000123H
+Response: 
+{
+  "UCID": "SABCD000123H",
+  "owner": "ABCD Inc.",
+  "uri": "https://ucid.sample.io/ucids/SABCD000123H",
+  "relationships": []
+}
 ```
 
 ### RA Identification <a name="examples_ra_identification"></a>
