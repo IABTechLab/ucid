@@ -182,7 +182,7 @@ The standard UCID structure for a creative identifier is an 11-character code co
 If supported by the RA, a client may also elect to apply a custom schema to their identifiers, such that individual positions in the generated ad code can represent creative attributes that have specific meaning to the client and other consumers of the code. This includes using extended characters, such as dash, slash, underscore, etc. within the domain or code. This flexibility in the schema also allows the UCID to incorporate formatting used in various "legacy" creative identifiers used across different global markets. In most cases, a legacy identifier can be converted to a UCID simply by adding an RAID prefix.
 
 #### Implementing Ad-ID format within a UCID
-![image](https://user-images.githubusercontent.com/7672719/142200475-69936d6b-742a-4ee9-b0c4-446fef47ff55.png)
+![image](https://user-images.githubusercontent.com/7672719/145657727-f148b9a2-01d8-4a69-af3f-3551b97472a2.png)
 
 #### Implementing Clearcast Clock-ID format within a UCID
 ![image](https://user-images.githubusercontent.com/7672719/142200531-dcf455b8-5457-498f-83b0-cdd86caa6e7d.png)
