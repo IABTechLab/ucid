@@ -515,7 +515,7 @@ Response:
 }
 ```
 
-### UCID vVification of "Legacy" Identifier <a name="examples_ucid_verification_legacy"></a>
+### UCID Verification of "Legacy" Identifier <a name="examples_ucid_verification_legacy"></a>
 
 The following is an example of a UCID verification operation where a "legacy" identifer was passed in request. The RA translates the identifer to its correct UCID format and returns response with legacy code as an "alias" relationship.
 
