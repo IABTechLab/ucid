@@ -2,8 +2,6 @@
 
 # Universal Creative Identification Framework Specification v1.0
 
-**September 2021**
-
 **About This Repository**
 At all times, the main branch of this repository contains the most recent release of the Universal Creative Identification Framework Specification. See [UCID v1.0 DRAFT.md](https://github.com/ExtremeReach/ucid/blob/main/spec/UCID%20v1.0%20DRAFT.md) in the main branch for the latest specification.
 
@@ -28,6 +26,5 @@ Learn more about Extreme Reach at [www.extremereach.com](https://www.extremereac
 
 **License**
 
-Universal Creative Identification Framework Specification is licensed under a Creative Commons Attribution 3.0 License. To view a copy of this license, visit[ creativecommons.org/licenses/by/3.0/](http://creativecommons.org/licenses/by/3.0/) or write to Creative Commons, 171 Second Street, Suite 300, San Francisco, CA 94105, USA.
+Universal Creative Identification Framework Specification is licensed under the Apache License, Version 2.0. License. To view a copy of this license, visit [http://www.apache.org/licenses/LICENSE-2.0.txt](http://www.apache.org/licenses/LICENSE-2.0.txt).
 
-![](https://drive.google.com/uc?id=1cbwEGlb8S69SndIDoHnvc5_3TfmkGM7R)
