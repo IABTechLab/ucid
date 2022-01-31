@@ -4,7 +4,7 @@
 
 **License**
 
-Universal Creative Identification Framework Specification is licensed under the Apache License, Version 2.0. License. To view a copy of this license, visit [http://www.apache.org/licenses/LICENSE-2.0.txt](http://www.apache.org/licenses/LICENSE-2.0.txt).
+Universal Creative Identification Framework Specification is licensed under the [http://www.apache.org/licenses/LICENSE-2.0.txt](Apache License, Version 2.0).
 
 ![](https://drive.google.com/uc?id=1cbwEGlb8S69SndIDoHnvc5_3TfmkGM7R)
 
