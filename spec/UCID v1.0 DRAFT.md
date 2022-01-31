@@ -1,6 +1,6 @@
 ![](https://app.extremereach.com/content/images/logo_header.gif)
 
-# Universal Creative Identification Framework Specification v1.0
+# Universal Creative Identification Framework Specification 1.0
 
 
 **TABLE OF CONTENTS**
