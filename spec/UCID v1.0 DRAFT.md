@@ -2,20 +2,15 @@
 
 # Universal Creative Identification Framework Specification v1.0
 
-**License**
-
-Universal Creative Identification Framework Specification is licensed under the [http://www.apache.org/licenses/LICENSE-2.0.txt](Apache License, Version 2.0).
-
-![](https://drive.google.com/uc?id=1cbwEGlb8S69SndIDoHnvc5_3TfmkGM7R)
 
 **TABLE OF CONTENTS**
 
-- [OVERVIEW](#overview)
+- [Overview](#overview)
   - [Universal Creative Identification Mission](#ucidmission)
   - [Universal Creative Identification Framework Executive Summary](#execsummary)
   - [History of Universal Creative Identification Framework](#historyofucid)
-- [REGULATORY GUIDANCE](#guidance)
-- [ARCHITECTURE](#architecture)
+- [Regulatory Guidance](#guidance)
+- [Architecture](#architecture)
   - [Terminology](#terminology)
   - [Universal Creative Identification Framework Principles](#ucid_principles)
   - [Reference Model](#referencemodel)
@@ -30,14 +25,14 @@ Universal Creative Identification Framework Specification is licensed under the 
     - [Layer-2:  Format](#layer2_format)
     - [Layer-3:  Transaction](#layer3_transaction)
     - [Layer-4:  Domain](#layer4_domain)
-- [SPECIFICATION](#specification)
+- [Specification](#specification)
   - [Object Model](#objectmodel)
     - [Object:  RegistrationAuthority](#object_ra)
     - [Object:  Domain](#object_domain)
     - [Object:  Ucid](#object_ucid)
     - [Object:  Relationship](#object_relationship)
-  - [Detailed Implementation Guide](#detailedimplementationguide)
-- [EXAMPLES](#examples)
+  - [Implementation Guide](#implementationguide)
+- [Examples](#examples)
   - [Domain Creation](#examples_domain_creation)
   - [UCID Creation](#examples_ucid_creation)
   - [UCID Verification](#examples_ucid_verification)
@@ -45,17 +40,18 @@ Universal Creative Identification Framework Specification is licensed under the 
   - [UCID Verification of Peer-Issued Identifier](#examples_ucid_verification_peer)
   - [RA Identification](#examples_ra_identification)
   - [RA Peer Discovery](#examples_peer_discovery)
+- [License](#license)
 - [Appendix A:  Additional Resources](#appendixa_additionalresources)
 - [Appendix B:  Change Log](#appendixb_changelog)
 - [Appendix C:  Errata](#appendixc_errata)
 - [Appendix C:  Versioning Policy](#appendixd_versioning)
 
 
-# OVERVIEW <a name="overview"></a>
+# Overview <a name="overview"></a>
 
 ## Universal Creative Identification Mission <a name="ucidmission"></a>
 
-The mission of the Universal Creative Identification project is to provide an open, interoperable mechanism for creating and verifying globally unique identifiers for disinguishing unique creative assets as they are produced, managed, aggregated, distributed and measured througout the marketing supply chain. By assigning a each creative its own, unique identifier parties throught the supply chain can use a consistent identifier when referencing a creative, regardless of where or how it is used.
+The mission of the Universal Creative Identification project is to provide an open, interoperable mechanism for creating and verifying globally unique identifiers used for disinguishing unique creative assets as they are produced, managed, aggregated, distributed and measured througout the marketing supply chain. By assigning a each creative its own, unique identifier parties throught the supply chain can use a consistent identifier when referencing a creative, regardless of where or how it is used.
 
 ## Universal Creative Identification Framework Executive Summary <a name="execsummary"></a>
 
@@ -67,11 +63,11 @@ The overall goal of Universal Creative Identification is and has been to create 
 
 A critical element of accurate campaign measurement is the ability to differentiate which ad creative was seen by which people. Basic KPIs, such as unique reach, frequency, creative performance, etc. rely on uniquely and unambiguously identifying each ad creative and then correctly associating that identifier with individual ad exposure metrics. As simple and obvious as this may seem, it remains quite elusive to the vast majority of the measurement ecosystem. The lack of standardization in ad identification across linear, CTV, web, mobile, social and out-of-home marketing channels results in highly fragmented measurement data sets that, at best, require significant manual effort to reconcile and, at worst, lead to wildly inaccurate measurement results. Universal Creative Identification (UCID) was launched as a pilot project by Extreme Reach in September 2021 to address this lack of standardization for creative identification across the global marketing ecosystem. 
 
-# REGULATORY GUIDANCE <a name="guidance"></a>
+# Regulatory Guidance <a name="guidance"></a>
 
 Universal Creative Identification implementations will need to ensure compliance with all applicable regional legislation.
 
-# ARCHITECTURE <a name="architecture"></a>
+# Architecture <a name="architecture"></a>
 
 This section describes the underlying model of the ecosystem to which creative identifiers apply and the overall organization of Universal Creative Identification so that specification details have proper context.
 
@@ -234,7 +230,7 @@ Refer to the Specification section of this document for full details.
 
 The Domain Layer defines the objects on which the Transaction Layer operates. In a typical UCID creation transaction the client would issue a request to a Registration Authority to generate a new UCID for a specific client domain and the newly created UCID object would be returned.
 
-# SPECIFICATION <a name="specification"></a>
+# Specification <a name="specification"></a>
 
 This section contains the detailed Universal Creative Identification transaction layer specification. Unless explicitly specified otherwise, annotated as optional, or called out as a best practice, all material aspects of this section are required for Universal Creative Identification compliance.
 
@@ -392,7 +388,7 @@ The <code>Relationship</code> object represents a related unique creative identi
 </table>
 
 
-# Detailed Implementation Guide <a name="detailedimplementationguide"></a>
+# Implementation Guide <a name="implementationguide"></a>
 
 To put these concepts into practice, Registration Authorities must know how to communicate with one another, how to discover peer RAs and how to verify UCIDs. Clients of RAs must know how to authenticate, request new domains and UCIDs and how to obtain UCID metadata. Each of these operations is implemented using a REST API operation that follows a standard URI, request and response format. This section describes each of the operations that must be implemented by a RA and the behavior that each should implement. For documentation purposes, each example URI uses the host name https://ucid.io.
 
@@ -592,7 +588,12 @@ Response:
   }
 ]
 ```
- 
+
+# License <a name="license"></a>
+
+Universal Creative Identification Framework Specification is licensed under the [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.txt).
+
+
 # Appendix A:  Additional Resources <a name="appendixa_additionalresources"></a>
 
 Reference 1
