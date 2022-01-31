@@ -2,11 +2,9 @@
 
 # Universal Creative Identification Framework Specification v1.0
 
-**November 2021**
-
 **License**
 
-Universal Creative Identification Framework Specification is licensed under a Creative Commons Attribution 3.0 License. To view a copy of this license, visit[ creativecommons.org/licenses/by/3.0/](http://creativecommons.org/licenses/by/3.0/) or write to Creative Commons, 171 Second Street, Suite 300, San Francisco, CA 94105, USA.
+Universal Creative Identification Framework Specification is licensed under the Apache License, Version 2.0. License. To view a copy of this license, visit [http://www.apache.org/licenses/LICENSE-2.0.txt](http://www.apache.org/licenses/LICENSE-2.0.txt).
 
 ![](https://drive.google.com/uc?id=1cbwEGlb8S69SndIDoHnvc5_3TfmkGM7R)
 
