@@ -1,0 +1,17 @@
+[
+  {
+    "name": "Ad-ID",
+    "RAID": "A",
+    "apiBaseUrl": "https://ucid.ad-id.org"
+  },
+  {
+    "name": "Clearcast",
+    "RAID": "C",
+    "apiBaseUrl": "https://ucid.clearcast.uk"
+  },
+  {
+    "name": "ISCI",
+    "RAID": "I",
+    "apiBaseUrl": "https://isci.extremereach.com"
+  }
+]
