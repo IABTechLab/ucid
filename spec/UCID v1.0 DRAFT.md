@@ -513,14 +513,15 @@ For API GET operations that include the UCID in the URL path or query string, th
  
 | Operation | HTTP Verb | Desription | Return Type|
 | --------- |-----------| -----------| ---------- |
-| https://ucid.example.com/ucids/{creative_identifier} | GET | Verifies a submitted, [URL-escaped](#escaping) creative_dentifier as being a UCID that was issued by the Registration Authority and returns the verified [UCID](#object_ucid) object.** | [UCID](#object_ucid) or 404 Not Found |   
+| https://ucid.example.com/ucids/{creative_identifier} | GET | Verifies a submitted, [URL-escaped](#escaping) creative_dentifier as being a UCID that was issued by the Registration Authority and returns the verified [UCID](#object_ucid) object.** | [UCID](#object_ucid), 404 Not Found or 301 Redirect (see [Peer UCID Verification](#peer_verification)) |   
  
- ### Peer UCID Verification <a name="ucid_verification"></a>
-
-If the submitted creative identifier was NOT issued by the RA receiving the verification request, it should be forwarded to one or more peer RAs. The initial RA will reformat the request to target the apiBaseUri of the appropriate peer RA, identified by its prefix, and forward the request to that RA, adding the `X-Peer-RAID` HTTP Header to the forwarded request. For cases where a “legacy” creative_dentifier is submitted for authentication (e.g. an identifier that does not match a known, registered RAID prefix), then the request can be forwarded to all known peers where the code matches the `legacyCodeFormat`. In this instance the client response must include the fully-qualified UCID, effectively providing an automatic translation from the legacy ID format to the new UCID format.
+ ### Peer UCID Verification <a name="peer_verification"></a>
+If a UCID verification operation produces a `404 Not Found` within the receiving RA, the request should be forwarded to one or more peer RAs. The initial RA will resolve the appropriate peer RA from the RAID prefix of the requested UCID. It will then reformat the request to target the `apiBaseUri` of the resolved peer RA and add the `X-Peer-RAID` HTTP Header. The reformatted request is then forwarded to the peer RA. If a valid UCID response is received from the peer RA the initial RA should return a `301 Redirect` response to the caller with the `Location` attribute set to the `Uri` property of the peer UCID response.
+For cases where a “legacy” creative_dentifier is submitted for authentication (e.g. an identifier that does not match a known, registered RAID prefix), then the above process is executed against all known peer RAs where the code matches the `legacyCodeFormat`. The first valid peer response will trigger the '301 Redirect` back to the caller.
+If no UCID can be resolved from either direct verificatio0n or peer vericiication, then a `404 Not Found` response should be returned.
 
 ### Peer-to-Peer Discovery <a name="operations-discovery"></a>
- The UCID framework is designed to allow Registration Authorities to communicate with each other in a peer-to-peer manner for verifying UCIDs and to allow for discovery of new RAs.
+ The UCID framework is designed to operate as a federated model, allowing Registration Authorities to communicate with each other in a peer-to-peer manner for verifying UCIDs and to allow for discovery of new RAs.
 
 | Operation | HTTP Verb | Desription | Return Type|
 | --------- |-----------| -----------| ---------- |
