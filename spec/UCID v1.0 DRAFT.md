@@ -501,10 +501,10 @@ The <code>Relationship</code> object represents a related unique creative identi
 
 # Implementation Guide <a name="implementationguide"></a>
 
-To put these concepts into practice, Registration Authorities must know how to communicate with one another, how to discover peer RAs and how to verify UCIDs. Clients of RAs must know how to authenticate, request new domains and UCIDs and how to obtain UCID metadata. Each of these operations is implemented using a REST API operation that follows a standard URI, request and response format. This section describes each of the operations that must be implemented by a RA and the behavior that each should implement. For documentation purposes, each example below uses the example RA host name https://ucid.io.
+To put these concepts into practice, Registration Authorities must know how to communicate with one another, how to discover peer RAs and how to verify UCIDs. Clients of RAs must know how to authenticate, request new domains and UCIDs and how to obtain UCID metadata. Each of these operations is implemented using a REST API operation that follows a standard URI, request and response format. This section describes each of the operations that must be implemented by a RA and the behavior that each should implement. For documentation purposes, each example below uses the example RA host name https://ucid.example.com.
 
 ## URL Character Escaping <a name="escaping"></a>
-For API GET operations that include the UCID in the URL path or query string, the UCID value must be URL-escaped to encode any reserved non-alphanumeric characters, such as colon, forward slash, etc. For example, a verification GET operation for the UCID code **CC:ABC/12345/030** would be escaped as [https://ucid.io/ucids/CC%3AABC%2F12345%2F030](https://ucid.io/ucids/CC%3AABC%2F12345%2F030) 
+For API GET operations that include the UCID in the URL path or query string, the UCID value must be URL-escaped to encode any reserved non-alphanumeric characters, such as colon, forward slash, etc. For example, a verification GET operation for the UCID code **CC:ABC/12345/030** would be escaped as [https://ucid.example.com/ucids/CC%3AABC%2F12345%2F030](https://ucid.example.com/ucids/CC%3AABC%2F12345%2F030) 
 
 ## Public Operations <a name="public_operations"></a>
 
@@ -513,15 +513,15 @@ For API GET operations that include the UCID in the URL path or query string, th
 
 | Operation | HTTP Verb | Desription | Return Type|
 | --------- |-----------| -----------| ---------- |
-| https://ucid.io/ra | GET | Returns the basic identification metadata for a Registration Authority, similar to a WHOIS record for an Internet domain. | [RegistrationAuthority](#object_ra) |
-| https://ucid.io/ra/peers | GET | Returns the directory of peer Registration Authorities known by the RA. Each RA should periodically call the /ra-peers endpoint of each of its peers to discover any newly created Registration Authorities and update it's local peer directory. Such checks also enable a RA to remove/mark offline peers that no longer respond,  | List of [RegistrationAuthority](#object_ra) | 
+| https://ucid.example.com/ra | GET | Returns the basic identification metadata for a Registration Authority, similar to a WHOIS record for an Internet domain. | [RegistrationAuthority](#object_ra) |
+| https://ucid.example.com/ra/peers | GET | Returns the directory of peer Registration Authorities known by the RA. Each RA should periodically call the /ra-peers endpoint of each of its peers to discover any newly created Registration Authorities and update it's local peer directory. Such checks also enable a RA to remove/mark offline peers that no longer respond,  | List of [RegistrationAuthority](#object_ra) | 
 
  ### UCID Verification <a name="ucid_verification"></a>
  Identifer verification is a very important aspect of the UCID framework. Each creative identifier must be able to be verified as having been issued by one of the available Registration Authorities. This provides traceability for creative identifiers and helps ensure clobal uniqueness.
  
 | Operation | HTTP Verb | Desription | Return Type|
 | --------- |-----------| -----------| ---------- |
-| https://ucid.io/ucids/{creative_identifier} | GET | Verifies a submitted, [URL-escaped](#escaping) creative_dentifier as being a UCID that was issued by the Registration Authority and returns the verified [UCID](#object_ucid) object.** | [UCID](#object_ucid) or 404 Not Found |   
+| https://ucid.example.com/ucids/{creative_identifier} | GET | Verifies a submitted, [URL-escaped](#escaping) creative_dentifier as being a UCID that was issued by the Registration Authority and returns the verified [UCID](#object_ucid) object.** | [UCID](#object_ucid) or 404 Not Found |   
  
 **If the submitted creative identifier was NOT issued by the RA, the RA will reformat the request to target the Uri of the correct verifying peer RA, identified by its prefix, and forward the request to the correct RA, adding the `X-Peer-RAID` Peer Header to the forwarded request. For cases where a “legacy” creative_dentifier is submitted for authentication (e.g. an identifier that does not match a known, registered RAID prefix), then the request can be forwarded to all peers where the code matches the `legacyCodeFormat`, in this instance the client response must include the fully-qualified UCID, effectively providing an automatic translation from the legacy ID format to the new UCID format.
  
@@ -534,32 +534,32 @@ For API GET operations that include the UCID in the URL path or query string, th
  Registry Authority operations allow a entiy/organization to request registration of a new RA against an existing RA in order to build out the peer netwrok.
 | Operation | HTTP Verb | Desription | Return Type|
 | --------- |-----------| -----------| ---------- |
-| https://ucid.io/ra | POST |  Submits basic metadata for an RA to be added to the network. Upon submission the RA will be in pending status. Pending RA's are automatically checked for conformity to the specification before being given a status of approved. An RA can elect not to implement the automatic approval mechanism and wait for another peer in the network to carry out the check. Once approved it is up to the RA organisation to move to a status of online (following appropriate possibly manual checks deemed necessary by the RA) meaning the RA is accessible and ready to verify codes within the network. | [RegistrationAuthority](#object_ra) 
+| https://ucid.example.com/ra | POST |  Submits basic metadata for an RA to be added to the network. Upon submission the RA will be in pending status. Pending RA's are automatically checked for conformity to the specification before being given a status of approved. An RA can elect not to implement the automatic approval mechanism and wait for another peer in the network to carry out the check. Once approved it is up to the RA organisation to move to a status of online (following appropriate possibly manual checks deemed necessary by the RA) meaning the RA is accessible and ready to verify codes within the network. | [RegistrationAuthority](#object_ra) 
 
  ### Domain Operations <a name="domain_operations"></a>
  Domain operations allow a client to request creation of a new domain and obtain the list of domains registered to them.
 | Operation | HTTP Verb | Desription | Return Type|
 | --------- |-----------| -----------| ---------- |
-| https://ucid.io/domains | GET |  Returns the list of domains registered to the client. | List of [Domain](#object_domain) |   
-| https://ucid.io/domains/{domain_code} | GET |  Checks existence of a domain registered to the client. | [Domain](#object_domain) |   
-| https://ucid.io/domains | POST | Request the creation of a new domain for the client. Optionally, a specific 4-character code can be submitted to allow for “vanity domains”. If not previously used, the domain will be created, otherwise an error will be returned. If domain_code is not supplied, a new unique 4-character code will be auto-generatd and returned. | [Domain](#object_domain) |   
+| https://ucid.example.com/domains | GET |  Returns the list of domains registered to the client. | List of [Domain](#object_domain) |   
+| https://ucid.example.com/domains/{domain_code} | GET |  Checks existence of a domain registered to the client. | [Domain](#object_domain) |   
+| https://ucid.example.com/domains | POST | Request the creation of a new domain for the client. Optionally, a specific 4-character code can be submitted to allow for “vanity domains”. If not previously used, the domain will be created, otherwise an error will be returned. If domain_code is not supplied, a new unique 4-character code will be auto-generatd and returned. | [Domain](#object_domain) |   
 
  ### UCID Operations <a name="ucid_operations"></a>
  The UCID creation operation is the core operation used to request the creation of a new UCID by a RA. This operation must generate a new, unique identifier using the RA Code, the client Domain and a unique character sequence based upon either the UCID standard format, or a custom schema implemented by the RA.
 | Operation | HTTP Verb | Desription | Return Type|
 | --------- |-----------| -----------| ---------- |
-| https://ucid.io/ucids | POST |  Requests the creation of a new UCID. The domain parameter is optional and only needed for clients that register more than one domain. If a domain is not supplied, then the UCID is created under the client’s default domain. If successful, the newly created UCID is returned. | [UCID](#object_ucid) |   
+| https://ucid.example.com/ucids | POST |  Requests the creation of a new UCID. The domain parameter is optional and only needed for clients that register more than one domain. If a domain is not supplied, then the UCID is created under the client’s default domain. If successful, the newly created UCID is returned. | [UCID](#object_ucid) |   
 
  ### Metadata Operations <a name="metadata_operations"></a>
 | Operation | HTTP Verb | Desription | Return Type|
 | --------- |-----------| -----------| ---------- |
-| https://ucid.io/ucids/{creative_identifier}/metadata | GET |  Requests the metadata associated with the specified UCID. | [UCIDMetadata](#object_ucid_metadata) |   
+| https://ucid.example.com/ucids/{creative_identifier}/metadata | GET |  Requests the metadata associated with the specified UCID. | [UCIDMetadata](#object_ucid_metadata) |   
 
  ### Relationship Operations <a name="relationship_operations"></a>
 | Operation | HTTP Verb | Desription | Return Type|
 | --------- |-----------| -----------| ---------- |
-| https://ucid.io/ucids/{creative_identifier}/relationships | POST |  Adds a new UCID relationship to the specified UCID. | [UCID](#object_ucid) |   
-| https://ucid.io/ucids/{creative_identifier}/relationships/{related_creative_identifier} | DELETE |  Removes a UCID relationship from the specified UCID. | [UCID](#object_ucid) |   
+| https://ucid.example.com/ucids/{creative_identifier}/relationships | POST |  Adds a new UCID relationship to the specified UCID. | [UCID](#object_ucid) |   
+| https://ucid.example.com/ucids/{creative_identifier}/relationships/{related_creative_identifier} | DELETE |  Removes a UCID relationship from the specified UCID. | [UCID](#object_ucid) |   
 
 
  
@@ -572,7 +572,7 @@ The following are examples of Layer-3 request/response operations and payloads e
 The following is an example of a Domain creation operation.
 
 ```
-Request:  POST https://ucid.io/domains
+Request:  POST https://ucid.example.com/domains
 Body:
  {
   "domainCode": "ACME",
@@ -592,7 +592,7 @@ Response:
 The following is an example of a UCID creation operation.
 
 ```
-Request:  POST https://ucid.io/ucids
+Request:  POST https://ucid.example.com/ucids
 Body:
  {
   "domain": "ACME",
@@ -601,9 +601,9 @@ Body:
 }
 Response: 
 {
-  "UCID": "EACME004723",
+  "UCID": "EX:ACME004723",
   "owner": "Acme International",
-  "uri": "https://ucid.io/ucids/EACME004723",
+  "uri": "https://ucid.example.com/ucids/EX%3AACME004723",
   "relationships": []
 }
 ```
@@ -613,12 +613,12 @@ Response:
 The following is an example of a UCID verification operation.
 
 ```
-Request:  GET https://ucid.io/ucids/EACME000123
+Request:  GET https://ucid.example.com/ucids/EX%3AACME000123
 Response: 
 {
-  "UCID": "EACME000123H",
+  "UCID": "EX:ACME000123H",
   "owner": "Acme International",
-  "uri": "https://ucid.io/ucids/EACME000123",
+  "uri": "https://ucid.example.com/ucids/EX%3AACME000123",
   "relationships": []
 }
 ```
@@ -628,18 +628,18 @@ Response:
 The following is an example of a UCID verification operation where a "legacy" identifer was passed in request. The RA translates the identifer to its correct UCID format and returns response with legacy code as an "alias" relationship.
 
 ```
-Request:  GET https://ucid.io/ucids/ACME000123
+Request:  GET https://ucid.example.com/ucids/ACME000123
 Response: 
 {
-  "UCID": "EACME000123H",
+  "UCID": "EX:ACME000123H",
   "owner": "Acme International",
-  "uri": "https://ucid.io/ucids/EACME000123",
+  "uri": "https://ucid.example.com/ucids/EX%3AACME000123H",
   "relationships": 
   [
     {
       "UCID": "ACME000123H",
       "relationshipType": "Alias",
-      "uri": "https://ucid.io/ucids/ACME000123"
+      "uri": "https://ucid.example.com/ucids/ACME000123"
     }
   ]
 }
@@ -650,12 +650,12 @@ Response:
 The following is an example of a UCID verification operation where an identifer issued by an RA peer was passed in the request. The RA resolves the issuing RA from RAID, proxies to call to the Peer RA, and returns the response.
 
 ```
-Request:  GET https://ucid.io/ucids/SABCD000123H
+Request:  GET https://ucid.example.com/ucids/EX%3AABCD000123H
 Response: 
 {
-  "UCID": "SABCD000123H",
+  "UCID": "EX:ABCD000123H",
   "owner": "ABCD Inc.",
-  "uri": "https://ucid.sample.io/ucids/SABCD000123H",
+  "uri": "https://ucid.example.com/ucids/EX%3AABCD000123H",
   "relationships": []
 }
 ```
@@ -666,14 +666,14 @@ Note: The response contains the uri for the peer RA.
 The following is an example of a RA identification operation.
 
 ```
-Request:  GET https://ucid.sample.io
+Request:  GET https://ucid.example.com/ra
 Response: 
 {
-  "Name": "Sample Registration Authority",
-  "RAID": "S",
-  "ApiBaseUrl": "https://ucid.sample.io",
-  "Organization": "Sample Organization",
-  "ContactEmail": "ucid@sample.io",
+  "Name": "Example Registration Authority",
+  "RAID": "EX",
+  "ApiBaseUrl": "https://ucid.example.com",
+  "Organization": "Example Organization",
+  "ContactEmail": "ucid@example.com",
   "RegionsCovered": "*"
 }
 ```
@@ -682,24 +682,24 @@ Response:
 The following is an example of a RA peer discovery operation.
 
 ```
-Request:  GET https://ucid.io/ra/peers
+Request:  GET https://ucid.example.com/ra/peers
 Response: 
 [
   {
+    "name": "Extreme Reach",
+    "RAID": "ER",
+    "apiBaseUrl": "https://ucid.extremereach.com"
+  },
+  {
     "name": "Ad-ID",
-    "RAID": "A",
+    "RAID": "AD",
     "apiBaseUrl": "https://ucid.ad-id.org"
   },
   {
     "name": "Clearcast",
-    "RAID": "C",
+    "RAID": "CC",
     "apiBaseUrl": "https://ucid.clearcast.uk"
   },
-  {
-    "name": "ISCI",
-    "RAID": "I",
-    "apiBaseUrl": "https://isci.extremereach.com"
-  }
 ]
 ```
 
