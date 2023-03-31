@@ -319,9 +319,9 @@ The Universal Creative Identification version must be passed in the header of ea
 Additionally, while optional, it is recommended that responses include an identically formatted HTTP header with the protocol version implemented by the responder.  It is assumed, however, that any response will be compatible with the version of the request and that version support is discussed beforehand between the parties. If the version header is omitted from a request the assumed version will be 1.0.
 
 #### Peer Headers <a name="peerheaders"></a>
-When an RA forwards a request to a Peer it must include a `X-Peer-RAID` header containing its own RAID. This allows the RA recieving the request to understand that the request came from within the RA network and therefore should not be forwarded further, acting as a circuit breaker to recursive calls.
+When an RA forwards a request to a Peer it must include a `X-Peer-RAID` header containing its own RAID. This allows the RA recieving the request to understand that the request came from within the RA peer network and therefore should not be forwarded further, acting as a circuit breaker to recursive calls.
 
-`X-Peer-RAID: E`
+`X-Peer-RAID: ER`
 
 #### Transport Security <a name="transportsecurity"></a>
 
@@ -508,22 +508,24 @@ For API GET operations that include the UCID in the URL path or query string, th
 
 ## Public Operations <a name="public_operations"></a>
 
- ### Peer-to-Peer Discovery <a name="operations-discovery"></a>
+ ### UCID Verification <a name="ucid_verification"></a>
+ Identifer verification is a key feature of the UCID framework. Each creative identifier must be able to be verified as having been issued by one of the available Registration Authorities. This provides traceability for creative identifiers and helps ensure clobal uniqueness.
+ 
+| Operation | HTTP Verb | Desription | Return Type|
+| --------- |-----------| -----------| ---------- |
+| https://ucid.example.com/ucids/{creative_identifier} | GET | Verifies a submitted, [URL-escaped](#escaping) creative_dentifier as being a UCID that was issued by the Registration Authority and returns the verified [UCID](#object_ucid) object.** | [UCID](#object_ucid) or 404 Not Found |   
+ 
+ ### Peer UCID Verification <a name="ucid_verification"></a>
+
+If the submitted creative identifier was NOT issued by the RA receiving the verification request, it should be forwarded to one or more peer RAs. The initial RA will reformat the request to target the apiBaseUri of the appropriate peer RA, identified by its prefix, and forward the request to that RA, adding the `X-Peer-RAID` HTTP Header to the forwarded request. For cases where a “legacy” creative_dentifier is submitted for authentication (e.g. an identifier that does not match a known, registered RAID prefix), then the request can be forwarded to all known peers where the code matches the `legacyCodeFormat`. In this instance the client response must include the fully-qualified UCID, effectively providing an automatic translation from the legacy ID format to the new UCID format.
+
+### Peer-to-Peer Discovery <a name="operations-discovery"></a>
  The UCID framework is designed to allow Registration Authorities to communicate with each other in a peer-to-peer manner for verifying UCIDs and to allow for discovery of new RAs.
 
 | Operation | HTTP Verb | Desription | Return Type|
 | --------- |-----------| -----------| ---------- |
 | https://ucid.example.com/ra | GET | Returns the basic identification metadata for a Registration Authority, similar to a WHOIS record for an Internet domain. | [RegistrationAuthority](#object_ra) |
 | https://ucid.example.com/ra/peers | GET | Returns the directory of peer Registration Authorities known by the RA. Each RA should periodically call the /ra-peers endpoint of each of its peers to discover any newly created Registration Authorities and update it's local peer directory. Such checks also enable a RA to remove/mark offline peers that no longer respond,  | List of [RegistrationAuthority](#object_ra) | 
-
- ### UCID Verification <a name="ucid_verification"></a>
- Identifer verification is a very important aspect of the UCID framework. Each creative identifier must be able to be verified as having been issued by one of the available Registration Authorities. This provides traceability for creative identifiers and helps ensure clobal uniqueness.
- 
-| Operation | HTTP Verb | Desription | Return Type|
-| --------- |-----------| -----------| ---------- |
-| https://ucid.example.com/ucids/{creative_identifier} | GET | Verifies a submitted, [URL-escaped](#escaping) creative_dentifier as being a UCID that was issued by the Registration Authority and returns the verified [UCID](#object_ucid) object.** | [UCID](#object_ucid) or 404 Not Found |   
- 
-**If the submitted creative identifier was NOT issued by the RA, the RA will reformat the request to target the Uri of the correct verifying peer RA, identified by its prefix, and forward the request to the correct RA, adding the `X-Peer-RAID` Peer Header to the forwarded request. For cases where a “legacy” creative_dentifier is submitted for authentication (e.g. an identifier that does not match a known, registered RAID prefix), then the request can be forwarded to all peers where the code matches the `legacyCodeFormat`, in this instance the client response must include the fully-qualified UCID, effectively providing an automatic translation from the legacy ID format to the new UCID format.
  
 ## Private Operations <a name="private-operations"></a>
 
