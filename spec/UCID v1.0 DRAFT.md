@@ -31,7 +31,12 @@
     - [Object:  Domain](#object_domain)
     - [Object:  Ucid](#object_ucid)
     - [Object:  Relationship](#object_relationship)
-  - [Implementation Guide](#implementationguide)
+- [Implementation Guide](#implementation-guide)
+  - [URL Character Escaping](#escaping)
+  - [Public Operations](#public-operations)
+    - [UCID Verification](#ucid-verification)
+    - [Peer UCID Verification](#peer-verification)
+    - [RA Peer Discovery](#peer-discovery)
 - [Examples](#examples)
   - [Domain Creation](#examples_domain_creation)
   - [UCID Creation](#examples_ucid_creation)
@@ -39,7 +44,6 @@
   - [UCID Verification of "Legacy" Identifier](#examples_ucid_verification_legacy)
   - [UCID Verification of Peer-Issued Identifier](#examples_ucid_verification_peer)
   - [RA Identification](#examples_ra_identification)
-  - [RA Peer Discovery](#examples_peer_discovery)
 - [License](#license)
 - [Appendix A:  Additional Resources](#appendixa_additionalresources)
 - [Appendix B:  Change Log](#appendixb_changelog)
@@ -499,28 +503,28 @@ The <code>Relationship</code> object represents a related unique creative identi
 </table>
 
 
-# Implementation Guide <a name="implementationguide"></a>
+# Implementation Guide <a name="implementation-guide"></a>
 
 To put these concepts into practice, Registration Authorities must know how to communicate with one another, how to discover peer RAs and how to verify UCIDs. Clients of RAs must know how to authenticate, request new domains and UCIDs and how to obtain UCID metadata. Each of these operations is implemented using a REST API operation that follows a standard URI, request and response format. This section describes each of the operations that must be implemented by a RA and the behavior that each should implement. For documentation purposes, each example below uses the example RA host name https://ucid.example.com.
 
 ## URL Character Escaping <a name="escaping"></a>
 For API GET operations that include the UCID in the URL path or query string, the UCID value must be URL-escaped to encode any reserved non-alphanumeric characters, such as colon, forward slash, etc. For example, a verification GET operation for the UCID code **CC:ABC/12345/030** would be escaped as [https://ucid.example.com/ucids/CC%3AABC%2F12345%2F030](https://ucid.example.com/ucids/CC%3AABC%2F12345%2F030) 
 
-## Public Operations <a name="public_operations"></a>
+## Public Operations <a name="public-operations"></a>
 
- ### UCID Verification <a name="ucid_verification"></a>
+ ### UCID Verification <a name="ucid-verification"></a>
  Identifer verification is a key feature of the UCID framework. Each creative identifier must be able to be verified as having been issued by one of the available Registration Authorities. This provides traceability for creative identifiers and helps ensure clobal uniqueness.
  
 | Operation | HTTP Verb | Desription | Return Type|
 | --------- |-----------| -----------| ---------- |
 | https://ucid.example.com/ucids/{creative_identifier} | GET | Verifies a submitted, [URL-escaped](#escaping) creative_dentifier as being a UCID that was issued by the Registration Authority and returns the verified [UCID](#object_ucid) object.** | [UCID](#object_ucid), 404 Not Found or 301 Redirect (see [Peer UCID Verification](#peer_verification)) |   
  
- ### Peer UCID Verification <a name="peer_verification"></a>
+ ### Peer UCID Verification <a name="peer-verification"></a>
 If a UCID cannot be verified within the receiving RA, the request should be forwarded to one or more peer RAs. The initial RA should first attempt to resolve the appropriate peer RA from the RAID prefix of the requested UCID. It will then reformat the request to target the `apiBaseUri` of the resolved peer RA and add the `X-Peer-RAID` HTTP Header. The reformatted request is then forwarded to the peer RA. If a valid UCID response is received from the peer RA the initial RA should return a `301 Redirect` response to the caller with the `Location` attribute set to the `Uri` property of the peer UCID response.
 If the peer RA returns a `404 Not Found`, or for cases where a “legacy” creative_dentifier is submitted that does not match a known, registered RAID prefix, then the above process is executed against all known peer RAs where the code matches the `legacyCodeFormat`. The first valid peer response should trigger the `301 Redirect` back to the caller.
 If no UCID can be resolved from either direct verification or peer verification, then a `404 Not Found` response should be returned.
 
-### Peer-to-Peer Discovery <a name="operations-discovery"></a>
+### Peer-to-Peer Discovery <a name="peer-discovery"></a>
  The UCID framework is designed to operate as a federated model, allowing Registration Authorities to communicate with each other in a peer-to-peer manner for verifying UCIDs and to allow for discovery of new RAs.
 
 | Operation | HTTP Verb | Desription | Return Type|
