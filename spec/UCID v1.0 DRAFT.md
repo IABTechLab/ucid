@@ -610,7 +610,7 @@ Response:
 }
 ```
 
-### UCID Cerification <a name="examples_ucid_verification"></a>
+### UCID Verification <a name="examples_ucid_verification"></a>
 
 The following is an example of a UCID verification operation.
 
