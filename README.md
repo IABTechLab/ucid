@@ -3,7 +3,7 @@
 # Universal Creative Identification Framework Specification 1.0
 
 **About This Repository**
-At all times, the main branch of this repository contains the most recent release of the Universal Creative Identification Framework Specification. See [UCID v1.0 DRAFT.md](https://github.com/ExtremeReach/ucid/blob/main/spec/UCID%20v1.0%20DRAFT.md) in the main branch for the latest specification.
+At all times, the main branch of this repository contains the most recent release of the Universal Creative Identification Framework Specification. See [UCID v1.0 DRAFT.md](https://github.com/IABTechLab/ucid/blob/main/spec/UCID%20v1.0%20DRAFT.md) in the main branch for the latest specification.
 
 Branches exist for prior releases. Use these to review detailed changes from one release to another. A brief change log is found in the specification itself.
 
