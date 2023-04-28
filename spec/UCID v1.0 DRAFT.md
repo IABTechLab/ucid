@@ -477,9 +477,10 @@ The <code>UCID</code> object represents a unique creative identifier created for
 
 ### Object:  Relationship <a name="object_relationship"></a>
 
-The <code>Relationship</code> object represents another identifier that is related to a UCID. This allows UCIDs to be linked to other UCIDs, or other types of "alias" identifiers, such as legacy codes, house numbers, watermarks, fingerprints, etc. It also allows for the expression of various types of relationships, such as a parent or child, to indicate hierarchies or connections to different versions of a creative. If the referenced identifier is another UCID, then the associated URI woul be the fully qualified AR API URL that returns the associated UCID metadata. If the identifer represents another "alias" identifier, then the URI would be the URL to return the associated object representation.
+The <code>Relationship</code> object represents another identifier that is related to a UCID. It also allows for the expression of various types of relationships, such as a parent, child, sibling or alias. The <code>alias</code> relationship allows a UCID to be linked to other creative identifiers, such as legacy codes, house numbers, watermarks, fingerprints, etc. The <code>parent</code>, <code>child</code> and <code>sibling</code> relationships can be used to indicate hierarchies or associations with different versions of a creative. 
+When the identifier specified in a <code>Relationship</code> is another UCID, then the corresponding <code>uri</code> property would be the fully qualified RA API URL that returns the associated UCID metadata. If the identifer represents a non-UCID identifier, then the <code>uri</code> property would hold the URL to return the associated object representation.
 
-The relationship construct provides a very flexible means of registering related identifiers, objects and metadata sets with a UCID.
+The relationship construct provides a very flexible means of associating other identifiers, objects and metadata sets with a UCID.
 
 <table>
   <tr>
@@ -488,14 +489,14 @@ The relationship construct provides a very flexible means of registering related
     <td><strong>Definition</strong></td>
   </tr>
   <tr>
-    <td><code>Identifier</code></td>
+    <td><code>identifier</code></td>
     <td>string;&nbsp;required&nbsp;</td>
     <td>Creative identifier code</td>
   </tr>
   <tr>
     <td><code>uri</code></td>
     <td>string;&nbsp;required&nbsp;</td>
-    <td>The fully qualified URI that returns a representation of the object represented by the identifier</td>
+    <td>The fully qualified URI that returns an representation of the object referenced by the identifier</td>
   </tr>
   <tr>
     <td><code>type</code></td>
