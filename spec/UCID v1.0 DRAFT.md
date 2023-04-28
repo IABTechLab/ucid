@@ -477,7 +477,9 @@ The <code>UCID</code> object represents a unique creative identifier created for
 
 ### Object:  Relationship <a name="object_relationship"></a>
 
-The <code>Relationship</code> object represents a related unique creative identifier. This allows UCIDs to be linked to each other to express various relationships, such as a parent, child or alias.
+The <code>Relationship</code> object represents another identifier that is related to a UCID. This allows UCIDs to be linked to other UCIDs, or other types of "alias" identifiers, such as legacy codes, house numbers, watermarks, fingerprints, etc. It also allows for the expression of various types of relationships, such as a parent or child, to indicate hierarchies or connections to different versions of a creative. If the referenced identifier is another UCID, then the associated URI woul be the fully qualified AR API URL that returns the associated UCID metadata. If the identifer represents another "alias" identifier, then the URI would be the URL to return the associated object representation.
+
+The relationship construct provides a very flexible means of registering related identifiers, objects and metadata sets with a UCID.
 
 <table>
   <tr>
@@ -486,14 +488,14 @@ The <code>Relationship</code> object represents a related unique creative identi
     <td><strong>Definition</strong></td>
   </tr>
   <tr>
-    <td><code>UCID</code></td>
+    <td><code>Identifier</code></td>
     <td>string;&nbsp;required&nbsp;</td>
-    <td>Unique creative identifier code</td>
+    <td>Creative identifier code</td>
   </tr>
   <tr>
     <td><code>uri</code></td>
     <td>string;&nbsp;required&nbsp;</td>
-    <td>The fully qualified URI that returns this UCID from the RA that issued it</td>
+    <td>The fully qualified URI that returns a representation of the object represented by the identifier</td>
   </tr>
   <tr>
     <td><code>type</code></td>
