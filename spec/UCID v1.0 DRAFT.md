@@ -55,17 +55,17 @@
 
 ## Universal Creative Identification Mission <a name="ucidmission"></a>
 
-The mission of the Universal Creative Identification project is to provide an open, interoperable mechanism for creating and verifying globally unique identifiers used for disinguishing unique creative assets as they are produced, managed, aggregated, distributed and measured througout the marketing supply chain. By assigning a each creative its own, unique identifier parties throught the supply chain can use a consistent identifier when referencing a creative, regardless of where or how it is used.
+The mission of the Universal Creative Identification project is to provide an open, interoperable mechanism for creating and verifying globally unique identifiers used for disinguishing unique creative assets as they are produced, managed, aggregated, distributed and measured througout the marketing supply chain. By assigning each creative its own, globally unique identifier parties throughout the supply chain can use a consistent identifier when referencing a creative, regardless of where or how it is sourced or used.
 
 ## Universal Creative Identification Framework Executive Summary <a name="execsummary"></a>
 
 This document specifies an open-standard framework for the creation and verification of globally unique identifers for creative assets. This specification aims to standardize and simplify the process for generating unique creative identifiers by multiple parties in the ecosystem. This results in an open ecosystem whereby multiple providers can participate instead of relying on a single, proprietary ID scheme, or on loosely defined formats and "honor system" uniqueness. The framework is patterned loosely after the [Internet Domain Name System](https://en.wikipedia.org/wiki/Domain_Name_System) (DNS), since Internet interoperability also depends on a clear system for ensuring uniqueness of resources. While DNS operates at a lower level of the networking stack, the Universal Creative Identification Framework operates on top of the HTTP protocol and uses standard HTTP REST API semantics to manage generation and access to creative identifiers. 
 
-The overall goal of Universal Creative Identification is and has been to create a *uniform standard* for idenfiying creative assets used in marketing. The intent is not to specify exactly how each participating party generates unique identifiers. As a project, we aim to establish a basic standard format and facilitate interoperability between parties in the ecosystem, while ensuring global uniqueness of identifiers so that campaign execution and reporting can be performed with greater accuracy.
+The overall goal of Universal Creative Identification is and has been to create a *uniform standard* for idenfiying creative assets used in marketing. The intent is not to specify exactly how each participating party generates unique identifiers. As a project, we aim to establish a basic standard format and facilitate interoperability between parties in the ecosystem, while ensuring global uniqueness of identifiers so that campaign execution and reporting can be performed with greater accuracy and efficiency.
 
 ## History of Universal Creative Identification Framework <a name="historyofucid"></a>
 
-A critical element of accurate campaign measurement is the ability to differentiate which ad creative was seen by which people. Basic KPIs, such as unique reach, frequency, creative performance, etc. rely on uniquely and unambiguously identifying each ad creative and then correctly associating that identifier with individual ad exposure metrics. As simple and obvious as this may seem, it remains quite elusive to the vast majority of the measurement ecosystem. The lack of standardization in ad identification across linear, CTV, web, mobile, social and out-of-home marketing channels results in highly fragmented measurement data sets that, at best, require significant manual effort to reconcile and, at worst, lead to wildly inaccurate measurement results. Universal Creative Identification (UCID) was launched as a pilot project by Extreme Reach in September 2021 to address this lack of standardization for creative identification across the global marketing ecosystem. 
+A critical element of accurate campaign measurement is the ability to differentiate which ad creative was seen by which people. Basic KPIs, such as unique reach, frequency, creative performance, etc. rely on uniquely and unambiguously identifying each ad creative and then correctly associating that identifier with individual ad exposure metrics. As simple and obvious as this may seem, it remains quite elusive to the vast majority of the marketing and measurement ecosystem. The lack of standardization in ad identification across linear, CTV, web, mobile, social and out-of-home marketing channels can cause the same ad creative to be recorded and measured as different ads. This results in highly fragmented measurement data sets that, at best, require significant manual effort to reconcile and, at worst, lead to wildly inaccurate measurement results. Universal Creative Identification (UCID) was launched as a pilot project by Extreme Reach in September 2021 to address this lack of standardization for creative identification across the global marketing ecosystem. 
 
 # Regulatory Guidance <a name="guidance"></a>
 
@@ -94,11 +94,11 @@ The following terms are used throughout this document specifically in the contex
   </tr>
   <tr>
     <td>Registration Authority ID (RAID)</td>
-    <td>The unique, one or two-character identifer that uniquely identifies a Registration Authority.</td>
+    <td>The unique, two-character identifer that uniquely identifies a Registration Authority.</td>
   </tr>
   <tr>
     <td>RA Peer</td>
-    <td>A dictionary maintained by an RA of other known RA implementations such that verification requests can be handled for UCID's that were generated by another RA.</td>
+    <td>A dictionary maintained by an RA of other known RA implementations, such that verification requests can be redirected for UCID's that were generated by another RA.</td>
   </tr>
   <tr>
     <td>Client</td>
@@ -129,16 +129,17 @@ The following points define the guiding principles underlying the Universal Crea
   * Issuing unique **Domains** for individual advertisers, agencies, etc. (clients), similar to how a company can register one or more Internet domains**.
   * Issuing **Universal Creative Identifiers**, or **UCIDs**, on behalf of authorized clients and ensuring that all issued identifiers are unique within each RA+Domain. Within a given RA+Domain a client may generate as many creative identifiers as they choose.
   * Verifying UCIDs to confirm that they were previously issued by the RA, or one of its peers.
+  * Providing basic public metadata for a UCID to indicate domain owner, adverstiser, brand, creative content length, etc.
   * Each RA should implement all API operations and objects defined in this specification. This allows each RA to communicate with its peers by calling well-known operations against the *ApiBaseUrl* for each RA.
 ### RA+Domain Scoping of Creative Identifiers 
 * An important element of the UCID framework is the inclusion of a **Registration Authority Identifier** (RAID) prefix on every generated identifier. This ensures that all creative identifiers are universally unique, even if two or more registries issue the same domain or ID value. This is similar to the “top level domain” (TLD) used with Internet domains (e.g. .com, .org, .edu, etc.)
-* The RAID is represented by a one or two alpha-numeric character prefix, followed by a colon ":" delimiter, which can quickly distinguish a UCID from other identigfier types and indicate which registry issued the code, similar to the prefix of a credit card designating VISA, MasterCard, etc.
-* The combination of RA and Domain must be globally unique.
+* The RAID is represented by a unique three-character prefix, consisting of two alpha-numeric characters followed by a period "." delimiter. This prefix can quickly distinguish a UCID from other identifier types and indicate which registry issued the UCID, similar to the prefix of a credit card designating VISA, MasterCard, etc.
+* The combination of RAID + Domain must be globally unique.
 ### Open Verification
-* Another important aspect of the UCID framework is the *open verification* mechanism. Any creative identifier can be verified by simply calling a public API operation against any recognized RA. This allows parties throughout the marketing supply chain to confirm the uniqueness and source for creative identifiers.
-* The framework allows “Legacy” creative codes that do not conform to the UCID structure (do not include a valid RAID prefix code) to be verified by querying peer RAs to verify that the code is valid and was generated by one of the peer RAs.
+* Another important feature of the UCID framework is the *open verification* mechanism. Any creative identifier can be verified by simply calling a public API operation against any recognized RA. This allows parties throughout the marketing supply chain to confirm the uniqueness and source for creative identifiers.
+* The framework allows “Legacy” creative codes that do not conform to the UCID structure (do not include a valid RAID prefix code) to be verified and resolved to their UCID-compliant equivalent by querying peer RAs to verify that the code is valid and was generated by a known peer RAs.
 * Clients should ensure that a UCID is assigned to *each unique creative asset* they produce and that the same UCID is used for all renditions and uses for that creative. For example, a video ad creative used across linear TV, CTV, web and social channels should use the same UCID for all usages to ensure that measurement data from various sources can be aligned to the same creative message.
-* Relationships between 2 or more UCIDs may be expressed to indicate parent-child associations, aliases, derivatives, or format translations. This allows for UCID "graphs" to be established that promote discovery ad interoperability. 
+* Relationships between 2 or more UCIDs may be expressed to indicate parent-child associations, aliases, derivatives, or format translations. This allows for UCID "graphs" to be established that promote discovery and interoperability. 
 
 ** Note : The UCID framework does not prescribe any commercial model to the operation of a Registration Authority. An RA provider may elect to charge a fee for registration and maintenance of ID Domains, fees for creation of individual codes, or may elect to offer the service for free as a value-add to other services.
 
@@ -158,8 +159,8 @@ The standard UCID structure for a creative identifier is an 13-character code co
   </tr>
   <tr>
     <td><pre>E</pre></td>
-    <td><pre>R</pre></td>
-    <td><pre>:</pre></td>
+    <td><pre>X</pre></td>
+    <td><pre>.</pre></td>
     <td><pre>A</pre></td>
     <td><pre>C</pre></td>
     <td><pre>M</pre></td>
@@ -184,8 +185,8 @@ The standard UCID structure for a creative identifier is an 13-character code co
   </tr>
   <tr>
     <td>RAID</td>
-    <td>2 alpha-numeric characters, from 0 to Z, followed by a colon ":" delimiter</td>
-    <td>Designates the Registration Authority that generated the UCID. Some initial RAID values could be: AD = Ad-ID, CC = Clearcast, ER = Extreme Reach, etc. This allows for up to 1296 total possible Registration Authorities.</td>
+    <td>2 alpha-numeric characters, from 0 to Z, followed by a period "." delimiter</td>
+    <td>Designates the Registration Authority that generated the UCID. Some initial RAID values could be: AD = Ad-ID, CC = Clearcast, XR = Extreme Reach, etc. This allows for up to 1296 total possible Registration Authorities.</td>
   </tr>
   <tr>
     <td>ID Domain</td>
@@ -218,8 +219,8 @@ This flexibility in the schema also allows the UCID to incorporate formatting fo
   </tr>
   <tr>
     <td><pre>E</pre></td>
-    <td><pre>R</pre></td>
-    <td><pre>:</pre></td>
+    <td><pre>X</pre></td>
+    <td><pre>.</pre></td>
     <td><pre>A</pre></td>
     <td><pre>C</pre></td>
     <td><pre>M</pre></td>
@@ -250,7 +251,7 @@ This flexibility in the schema also allows the UCID to incorporate formatting fo
   <tr>
     <td><pre>A</pre></td>
     <td><pre>D</pre></td>
-    <td><pre>:</pre></td>
+    <td><pre>.</pre></td>
     <td><pre>A</pre></td>
     <td><pre>C</pre></td>
     <td><pre>M</pre></td>
@@ -280,7 +281,7 @@ This flexibility in the schema also allows the UCID to incorporate formatting fo
   <tr>
     <td><pre>C</pre></td>
     <td><pre>C</pre></td>
-    <td><pre>:</pre></td>
+    <td><pre>.</pre></td>
     <td><pre>A</pre></td>
     <td><pre>B</pre></td>
     <td><pre>C</pre></td>
@@ -325,7 +326,7 @@ Additionally, while optional, it is recommended that responses include an identi
 #### Peer Headers <a name="peerheaders"></a>
 When an RA forwards a request to a Peer it must include a `X-Peer-RAID` header containing its own RAID. This allows the RA recieving the request to understand that the request came from within the RA peer network and therefore should not be forwarded further, acting as a circuit breaker to recursive calls.
 
-`X-Peer-RAID: ER`
+`X-Peer-RAID: EX`
 
 #### Transport Security <a name="transportsecurity"></a>
 
@@ -407,7 +408,7 @@ The <code>RegistrationAuthority</code> object represents the information for a s
   <tr>
     <td><code>legacyCodeFormat</code></td>
     <td>string</td>
-    <td>Regular expression defining non UCID code formats that can be verified. Enables an RA to search for peer that can potentially verify a code with a RAID that is not recognised.</td>
+    <td>Regular expression defining non UCID code formats that can be verified. Enables an RA to search for peer that can potentially verify a code with a RAID that is not recognized.</td>
   </tr>
 </table>
 
@@ -469,6 +470,26 @@ The <code>UCID</code> object represents a unique creative identifier created for
     <td>The fully qualified URI that returns this UCID from the RA that issued it</td>
   </tr>
   <tr>
+    <td><code>advertiser</code></td>
+    <td>string</td>
+    <td>The advertiser associated with the creative identified by the UCID</td>
+  </tr>
+  <tr>
+    <td><code>brand</code></td>
+    <td>string</td>
+    <td>The brand associated with the creative identified by the UCID</td>
+  </tr>
+  <tr>
+    <td><code>product</code></td>
+    <td>string</td>
+    <td>The product associated with the creative identified by the UCID</td>
+  </tr>
+  <tr>
+    <td><code>duration</code></td>
+    <td>string</td>
+    <td>The duration in seconds of the creative identified by the UCID (for static images a duration of 0 is used)</td>
+  </tr>
+  <tr>
     <td><code>relationships</code></td>
     <td>List of <code>Relationship</code></td>
     <td>The optional set of related UCIDs that this UCID is related to</td>
@@ -508,10 +529,10 @@ The relationship construct provides a very flexible means of associating other i
 
 # Implementation Guide <a name="implementation-guide"></a>
 
-To put these concepts into practice, Registration Authorities must know how to communicate with one another, how to discover peer RAs and how to verify UCIDs. Clients of RAs must know how to authenticate, request new domains and UCIDs and how to obtain UCID metadata. Each of these operations is implemented using a REST API operation that follows a standard URI, request and response format. This section describes each of the operations that must be implemented by a RA and the behavior that each should implement. For documentation purposes, each example below uses the example RA host name https://ucid.example.com.
+To put these concepts into practice, Registration Authorities must know how to communicate with one another, how to discover peer RAs and how to verify UCIDs. Clients of RAs must know how to authenticate, request new domains and UCIDs and how to obtain UCID metadata. Each of these operations is implemented using a REST API operation that follows a standard URI, request and response format. This section describes each of the operations that must be implemented by a RA and the behavior that each should implement. For documentation purposes, each example below uses the example RA host name https://ucid.example.com, which uses the RAID "EX".
 
 ## URL Character Escaping <a name="escaping"></a>
-For API GET operations that include the UCID in the URL path or query string, the UCID value must be URL-escaped to encode any reserved non-alphanumeric characters, such as colon, forward slash, etc. For example, a verification GET operation for the UCID code **CC:ABC/12345/030** would be escaped as [https://ucid.example.com/ucids/CC%3AABC%2F12345%2F030](https://ucid.example.com/ucids/CC%3AABC%2F12345%2F030) 
+For API GET operations that include the UCID in the URL path or query string, the UCID value must be URL-escaped to encode any reserved non-alphanumeric characters, such as colon, forward slash, etc. For example, a verification GET operation for the UCID code **EX.ABC/12345/030** would be escaped as [https://ucid.example.com/ucids/EX.ABC%2F12345%2F030](https://ucid.example.com/ucids/EX.ABC%2F12345%2F030) 
 
 ## Public Operations <a name="public-operations"></a>
 
@@ -520,7 +541,7 @@ For API GET operations that include the UCID in the URL path or query string, th
  
 | Operation | HTTP Verb | Desription | Return Type|
 | --------- |-----------| -----------| ---------- |
-| https://ucid.example.com/ucids/{creative_identifier} | GET | Verifies a submitted, [URL-escaped](#escaping) creative_dentifier as being a UCID that was issued by the Registration Authority and returns the verified [UCID](#object_ucid) object.** | [UCID](#object_ucid), 404 Not Found or 301 Redirect (see [Peer UCID Verification](#peer_verification)) |   
+| https://ucid.example.com/ucids/{creative_identifier} | GET | Verifies a submitted, [URL-escaped](#escaping) creative_dentifier as being a UCID that was issued by the Registration Authority and returns the verified [UCID](#object_ucid) object and associated metadata.** | [UCID](#object_ucid), 404 Not Found or 301 Redirect (see [Peer UCID Verification](#peer_verification)) |   
  
  ### Peer UCID Verification <a name="peer-verification"></a>
 If a UCID cannot be verified within the receiving RA, the request should be forwarded to one or more peer RAs. The initial RA should first attempt to resolve the appropriate peer RA from the RAID prefix of the requested UCID. It will then reformat the request to target the `apiBaseUri` of the resolved peer RA and add the `X-Peer-RAID` HTTP Header. The reformatted request is then forwarded to the peer RA. If a valid UCID response is received from the peer RA the initial RA should return a `301 Redirect` response to the caller with the `Location` attribute set to the `Uri` property of the peer UCID response.
@@ -552,10 +573,11 @@ If no UCID can be resolved from either direct verification or peer verification,
 | --------- |-----------| -----------| ---------- |
 | https://ucid.example.com/domains | GET |  Returns the list of domains registered to the client. | List of [Domain](#object_domain) |   
 | https://ucid.example.com/domains/{domain_code} | GET |  Checks existence of a domain registered to the client. | [Domain](#object_domain) |   
-| https://ucid.example.com/domains | POST | Request the creation of a new domain for the client. Optionally, a specific 4-character code can be submitted to allow for “vanity domains”. If not previously used, the domain will be created, otherwise an error will be returned. If domain_code is not supplied, a new unique 4-character code will be auto-generatd and returned. | [Domain](#object_domain) |   
+| https://ucid.example.com/domains | POST | Request the creation of a new domain for the client. Optionally, a specific 4-character code can be submitted to allow for “vanity domains”. If not previously used, the domain will be created, otherwise an error will be returned. If domain_code is not supplied, a new unique 4-character code will be auto-generated and returned. | [Domain](#object_domain) |   
 
  ### UCID Operations <a name="ucid_operations"></a>
- The UCID creation operation is the core operation used to request the creation of a new UCID by a RA. This operation must generate a new, unique identifier using the RA Code, the client Domain and a unique character sequence based upon either the UCID standard format, or a custom schema implemented by the RA.
+ The UCID creation operation is the core operation used to request the creation of a new UCID by a RA. This operation must always generate a new, unique identifier using the RAID, the client Domain and a unique character sequence based upon either the UCID standard format, or a custom schema implemented by the RA. If a "customIdentifier" value supplied in the request, it is checked for uniqueness and, optionally, conformance with the schema enforced by the RA. If a "customIdentifier" value is supplied in the request that would result in a non-unique, or non-conformant, UCID value, the request should return an error. If no "customIdentifier" value is supplied in the request, a new, generic unique code is auto-generated by the RA. If a "customPrefix" and/or "customSuffix" IS supplied in the request, these are prepended and/or appended to the generic unique code.
+ 
 | Operation | HTTP Verb | Desription | Return Type|
 | --------- |-----------| -----------| ---------- |
 | https://ucid.example.com/ucids | POST |  Requests the creation of a new UCID. The domain parameter is optional and only needed for clients that register more than one domain. If a domain is not supplied, then the UCID is created under the client’s default domain. If successful, the newly created UCID is returned. | [UCID](#object_ucid) |   
@@ -606,14 +628,15 @@ Request:  POST https://ucid.example.com/ucids
 Body:
  {
   "domain": "ACME",
+  "customIdentifier": "",
   "customPrefix": "",
   "customSuffix": ""
 }
 Response: 
 {
-  "UCID": "EX:ACME004723",
+  "UCID": "EX.ACME004723",
   "owner": "Acme International",
-  "uri": "https://ucid.example.com/ucids/EX%3AACME004723",
+  "uri": "https://ucid.example.com/ucids/EX.ACME004723",
   "relationships": []
 }
 ```
@@ -623,12 +646,12 @@ Response:
 The following is an example of a UCID verification operation.
 
 ```
-Request:  GET https://ucid.example.com/ucids/EX%3AACME000123
+Request:  GET https://ucid.example.com/ucids/EX.ACME000123
 Response: 
 {
-  "UCID": "EX:ACME000123H",
+  "UCID": "EX.ACME000123H",
   "owner": "Acme International",
-  "uri": "https://ucid.example.com/ucids/EX%3AACME000123",
+  "uri": "https://ucid.example.com/ucids/EX.ACME000123",
   "relationships": []
 }
 ```
@@ -641,9 +664,9 @@ The following is an example of a UCID verification operation where a "legacy" id
 Request:  GET https://ucid.example.com/ucids/ACME000123
 Response: 
 {
-  "UCID": "EX:ACME000123H",
+  "UCID": "EX.ACME000123H",
   "owner": "Acme International",
-  "uri": "https://ucid.example.com/ucids/EX%3AACME000123H",
+  "uri": "https://ucid.example.com/ucids/EX.ACME000123H",
   "relationships": 
   [
     {
@@ -660,12 +683,12 @@ Response:
 The following is an example of a UCID verification operation where an identifer issued by an RA peer was passed in the request. The RA resolves the issuing RA from RAID, proxies to call to the Peer RA, and returns the response.
 
 ```
-Request:  GET https://ucid.example.com/ucids/EX%3AABCD000123H
+Request:  GET https://ucid.example.com/ucids/PX.ABCD000123H
 Response: 
 {
-  "UCID": "EX:ABCD000123H",
+  "UCID": "PX.ABCD000123H",
   "owner": "ABCD Inc.",
-  "uri": "https://ucid.example.com/ucids/EX%3AABCD000123H",
+  "uri": "https://ucid.peer-ra.com/ucids/PX.ABCD000123H",
   "relationships": []
 }
 ```
@@ -697,7 +720,7 @@ Response:
 [
   {
     "name": "Extreme Reach",
-    "RAID": "ER",
+    "RAID": "EX",
     "apiBaseUrl": "https://ucid.extremereach.com"
   },
   {
@@ -720,7 +743,7 @@ Universal Creative Identification Framework Specification is licensed under the 
 
 # Appendix A:  Additional Resources <a name="appendixa_additionalresources"></a>
 
-Reference 1
+Extreme Reach
 [www.extremereach.com](https://www.extremereach.com)
 
 Creative Commons / Attribution License
@@ -740,13 +763,18 @@ This appendix serves as a brief summary of changes to the specification. These c
 <table>
   <tr>
     <td><strong>Version</strong></td>
-    <td><strong>Release</strong></td>
+    <td><strong>Date</strong></td>
     <td><strong>Changes</strong></td>
   </tr>
   <tr>
     <td>1.0</td>
-    <td>N/A</td>
+    <td>September, 2021</td>
     <td>Original release of Universal Creative Identification specification.</td>
+  </tr>
+  <tr>
+    <td>1.0</td>
+    <td>January, 2024</td>
+    <td>Revisions to specification to modify RAID delimiter and UCID metadata payload.</td>
   </tr>
 </table>
 
