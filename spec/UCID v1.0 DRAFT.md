@@ -635,13 +635,23 @@ Body:
   "domain": "ACME",
   "customIdentifier": "",
   "customPrefix": "",
-  "customSuffix": ""
+  "customSuffix": "",
+  "advertiser": "Acme",
+  "brand": "Coyote Brands",
+  "product": "Invisible Paint",
+  "creativeType": "video",
+  "creativeDuration": "30"
 }
 Response: 
 {
   "UCID": "EX.ACME004723",
   "owner": "Acme International",
   "uri": "https://ucid.example.com/ucids/EX.ACME004723",
+  "advertiser": "Acme",
+  "brand": "Coyote Brands",
+  "product": "Invisible Paint",
+  "creativeType": "video",
+  "creativeDuration": "30",
   "relationships": []
 }
 ```
