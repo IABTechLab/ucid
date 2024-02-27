@@ -1,5 +1,3 @@
-![](https://app.extremereach.com/content/images/logo_header.gif)
-
 # Universal Creative Identification Framework Specification 1.0
 
 
@@ -61,7 +59,7 @@ The mission of the Universal Creative Identification project is to provide an op
 
 This document specifies an open-standard framework for the creation and verification of globally unique identifers for creative assets. This specification aims to standardize and simplify the process for generating unique creative identifiers by multiple parties in the ecosystem. This results in an open ecosystem whereby multiple providers can participate instead of relying on a single, proprietary ID scheme, or on loosely defined formats and "honor system" uniqueness. The framework is patterned loosely after the [Internet Domain Name System](https://en.wikipedia.org/wiki/Domain_Name_System) (DNS), since Internet interoperability also depends on a clear system for ensuring uniqueness of resources. While DNS operates at a lower level of the networking stack, the Universal Creative Identification Framework operates on top of the HTTP protocol and uses standard HTTP REST API semantics to manage generation and access to creative identifiers. 
 
-The overall goal of Universal Creative Identification is and has been to create a *uniform standard* for idenfiying creative assets used in marketing. The intent is not to specify exactly how each participating party generates unique identifiers. As a project, we aim to establish a basic standard format and facilitate interoperability between parties in the ecosystem, while ensuring global uniqueness of identifiers so that campaign execution and reporting can be performed with greater accuracy and efficiency.
+The overall goal of Universal Creative Identification Framework is simply to create a *uniform standard* for identifying creative assets used in marketing. The intent is not to specify exactly how each participating party generates unique identifiers. As a project, we aim to establish a basic standard format and facilitate interoperability between parties in the ecosystem, while ensuring global uniqueness of identifiers so that campaign execution and reporting can be performed with greater accuracy and efficiency.
 
 ## History of Universal Creative Identification Framework <a name="historyofucid"></a>
 
