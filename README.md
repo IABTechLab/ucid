@@ -12,7 +12,7 @@ For more information, or to get involved, please email ucid@extremereach.com.
 
 **About Extreme Reach**
 
-<img src="[https://github.com/favicon.ico](https://app.extremereach.com/content/images/logo_header.gif)" width="300">
+<img src="https://app.extremereach.com/content/images/logo_header.gif" width="300">
 
 XR Extreme Reach (XR) is the global leader in creative logistics. Its end-to-end technology platform moves creative at the speed of media, simplifying the activation and optimization of omnichannel campaigns for brands and agencies with unparalleled control, visibility and insights. 
 
