@@ -2,21 +2,33 @@
   {
     "name": "Ad-ID",
     "RAID": "AD",
-    "apiBaseUrl": "https://ucid.ad-id.org"
+    "apiBaseUrl": "https://ucid.ad-id.org",
+    "organization": "Ad-ID",
+    "contactEmail": "ucid@ad-id.org",
+    "regionsCovered": "US"
   },
   {
     "name": "Clearcast",
     "RAID": "CC",
-    "apiBaseUrl": "https://ucid.clearcast.uk"
+    "apiBaseUrl": "https://ucid.clearcast.uk",
+    "organization": "Clearcast",
+    "contactEmail": "ucid@clearcast.uk",
+    "regionsCovered": "UK"
   },
   {
     "name": "XR Extreme Reach",
     "RAID": "XR",
     "apiBaseUrl": "https://ucid.extremereach.com"
+    "organization": "XR Extreme Reach",
+    "contactEmail": "ucid@extremereach.com",
+    "regionsCovered": "*"
   },
   {
     "name": "ARPP",
     "RAID": "AR",
-    "apiBaseUrl": "https://ucid.arpp.org"
+    "apiBaseUrl": "https://ucid.arpp.org",
+    "organization": "Autorité de Régulation Professionnelle de la Publicité", 
+    "contactEmail": "ucid@arpp.org",
+    "regionsCovered": "FR"
   },
 ]
