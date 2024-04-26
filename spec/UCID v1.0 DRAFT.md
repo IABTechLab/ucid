@@ -436,9 +436,9 @@ The <code>Domain</code> object represents a unique 4-character prefix assigned t
     <td>The name of the organization/entity that owns the domain</td>
   </tr>
   <tr>
-    <td><code>domainName</code></td>
+    <td><code>domainDescription</code></td>
     <td>string</td>
-    <td>"Friendly" name associated with domain, e.g. associated advertiser, brand, internet domain, etc.</td>
+    <td>"Friendly" description associated with domain, e.g. associated advertiser, brand, internet domain, etc.</td>
   </tr>
 </table>
 
@@ -469,28 +469,33 @@ The <code>UCID</code> object represents a unique creative identifier created for
   </tr>
   <tr>
     <td><code>advertiser</code></td>
-    <td>string</td>
+    <td>string;&nbsp;required&nbsp;</td>
     <td>The advertiser associated with the creative identified by the UCID</td>
   </tr>
   <tr>
     <td><code>brand</code></td>
-    <td>string</td>
+    <td>string;&nbsp;required&nbsp;</td>
     <td>The brand associated with the creative identified by the UCID</td>
+  </tr>
+  <tr>
+    <td><code>duration</code></td>
+    <td>number;&nbsp;required&nbsp;</td>
+    <td>The duration in seconds of the creative identified by the UCID (for static content a duration of 0 is used)</td>
+  </tr>
+  <tr>
+    <td><code>language</code></td>
+    <td>string;&nbsp;required&nbsp;</td>
+    <td>The primary ISO language of the creative identified by the UCID (e.g. en, fr, de, etc.)</td>
   </tr>
   <tr>
     <td><code>product</code></td>
     <td>string</td>
-    <td>The product associated with the creative identified by the UCID</td>
+    <td>The optional product associated with the creative identified by the UCID</td>
   </tr>
   <tr>
     <td><code>creativeType</code></td>
     <td>string</td>
     <td>The primary mime-type category of the creative identified by the UCID (e.g. video, audio, image, text, etc.)</td>
-  </tr>
-  <tr>
-    <td><code>creativeDuration</code></td>
-    <td>string</td>
-    <td>The duration in seconds of the creative identified by the UCID (for static content a duration of 0 is used)</td>
   </tr>
   <tr>
     <td><code>relationships</code></td>
@@ -638,7 +643,8 @@ Body:
   "brand": "Coyote Tools",
   "product": "Invisible Paint",
   "creativeType": "video",
-  "creativeDuration": "30"
+  "duration": "30",
+  "language": "en"
 }
 Response: 
 {
@@ -649,7 +655,8 @@ Response:
   "brand": "Coyote Tools",
   "product": "Invisible Paint",
   "creativeType": "video",
-  "creativeDuration": "30",
+  "duration": "30",
+  "language": "en"
   "relationships": []
 }
 ```
@@ -669,7 +676,8 @@ Response:
   "brand": "Coyote Tools",
   "product": "Invisible Paint",
   "creativeType": "video",
-  "creativeDuration": "30",
+  "duration": "30",
+  "language": "en"
   "relationships": []
 }
 ```
@@ -689,7 +697,8 @@ Response:
   "brand": "Coyote Tools",
   "product": "Invisible Paint",
   "creativeType": "video",
-  "creativeDuration": "30",
+  "duration": "30",
+  "language": "en"
   "relationships": 
   [
     {
