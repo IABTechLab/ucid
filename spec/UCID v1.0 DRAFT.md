@@ -490,17 +490,17 @@ The <code>UCID</code> object represents a unique creative identifier created for
   <tr>
     <td><code>product</code></td>
     <td>string</td>
-    <td>The optional product associated with the creative identified by the UCID</td>
+    <td>(Optional) The product associated with the creative identified by the UCID</td>
   </tr>
   <tr>
     <td><code>creativeType</code></td>
     <td>string</td>
-    <td>The primary mime-type category of the creative identified by the UCID (e.g. video, audio, image, text, etc.)</td>
+    <td>(Optional) The primary mime-type category of the creative identified by the UCID (e.g. video, audio, image, text, etc.)</td>
   </tr>
   <tr>
     <td><code>relationships</code></td>
     <td>List of <code>Relationship</code></td>
-    <td>The optional set of related UCIDs that this UCID is related to</td>
+    <td>(Optional) The list of creative identifers (UCID or other) that this UCID is related to</td>
   </tr>
 </table>
 
